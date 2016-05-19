@@ -9,11 +9,13 @@ module CrmHelper
     end
   end
 
-  def stub_crm_type(method, type, options = {})
+  def stub_crm_request(method, resource, options = {})
     return if ENV['WEBCRM_INTEGRATION'].present?
 
-    url = %r{https://.*:.*@#{crm_configuration[:tenant]}.crm.infopark.net/api2/types/#{type}}
-    path_to_body_file = File.expand_path(File.join(%W(.. crm fakeweb api2 types #{type}.json)), __FILE__)
+    url = %r{https://.*:.*@#{crm_configuration[:tenant]}.crm.infopark.net/api2/#{resource}}
+    path_to_body_file = File.expand_path(File.join(%W(.. crm fakeweb api2 #{resource}.json)), __FILE__)
+    return unless File.exist?(path_to_body_file)
+
     body = File.read(path_to_body_file)
     options.reverse_merge!(body: body)
 
