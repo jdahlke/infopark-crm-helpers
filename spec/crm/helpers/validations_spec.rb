@@ -6,7 +6,7 @@ describe Crm::Helpers::Validations do
       not_mandatory: { mandatory: false },
       not_mandatory_either: { mandatory: false },
       mandatory: { mandatory: true },
-      amanda_tory: { mandatory: true },
+      amanda_tory: { mandatory: true }
     }.with_indifferent_access
   end
 

@@ -17,7 +17,8 @@ Gem::Specification.new do |spec|
   spec.email         = ['mail@huydinh.eu']
 
   spec.summary       = 'Helpers for the Infopark WebCRM SDK for Ruby.'
-  spec.description   = 'infopark-crm-helpers provides helper mixins and validators to use with the Infopark WebCRM. It is based on the Infopark WebCRM SDK for Ruby.'
+  spec.description   = 'infopark-crm-helpers provides helper mixins and validators to use with the Infopark WebCRM.'
+  spec.description  += ' It is based on the Infopark WebCRM SDK for Ruby.'
   spec.homepage      = 'https://github.com/Skudo/infopark-crm-helpers'
   spec.license       = 'MIT'
 

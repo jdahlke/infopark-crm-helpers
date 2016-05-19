@@ -54,7 +54,7 @@ describe Crm::Helpers::Attributes do
     context 'with undefined reader methods' do
       it 'should define reader methods' do
         subject.represents_crm_type(:contact)
-        subject.crm_attr_reader *methods
+        subject.crm_attr_reader(*methods)
         instance = subject.new
 
         methods.each do |method|
@@ -69,7 +69,7 @@ describe Crm::Helpers::Attributes do
           include Crm::Helpers::Attributes
 
           represents_crm_type :contact
-          crm_attr_reader *methods
+          crm_attr_reader(*methods)
 
           def first_name
             'Bob'
@@ -94,7 +94,7 @@ describe Crm::Helpers::Attributes do
     context 'with undefined reader methods' do
       it 'should define reader methods' do
         subject.represents_crm_type(:contact)
-        subject.crm_attr_reader *crm_methods
+        subject.crm_attr_reader(*crm_methods)
         instance = subject.new
 
         crm_methods.each do |crm_method|
@@ -104,7 +104,7 @@ describe Crm::Helpers::Attributes do
 
       it 'should add the reader methods to .crm_attr_readers' do
         subject.represents_crm_type(:contact)
-        subject.crm_attr_reader *crm_methods
+        subject.crm_attr_reader(*crm_methods)
 
         expect(subject.crm_attr_readers).to eq(crm_methods)
       end
@@ -147,7 +147,7 @@ describe Crm::Helpers::Attributes do
     context 'with undefined writer methods' do
       it 'should define writer methods' do
         subject.represents_crm_type(:contact)
-        subject.crm_attr_writer *crm_methods
+        subject.crm_attr_writer(*crm_methods)
         instance = subject.new
 
         crm_methods.each do |crm_method|
@@ -157,7 +157,7 @@ describe Crm::Helpers::Attributes do
 
       it 'should add the reader methods to .crm_attr_readers' do
         subject.represents_crm_type(:contact)
-        subject.crm_attr_writer *crm_methods
+        subject.crm_attr_writer(*crm_methods)
 
         expect(subject.crm_attr_writers).to eq(%i(first_name= last_name=))
       end
@@ -205,7 +205,7 @@ describe Crm::Helpers::Attributes do
     it 'should call .crm_attr_reader and .crm_attr_writer' do
       expect(subject).to receive(:crm_attr_reader).with(*crm_methods)
       expect(subject).to receive(:crm_attr_writer).with(*crm_methods)
-      subject.crm_attr_accessor *crm_methods
+      subject.crm_attr_accessor(*crm_methods)
     end
   end
 end

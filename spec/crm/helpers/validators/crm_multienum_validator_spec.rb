@@ -1,14 +1,16 @@
 require 'spec_helper'
 
 describe Crm::Helpers::Validators::CrmMultienumValidator, type: :validator do
-  VALID_VALUES = [2, 3, 5, 7, 11, 13, 17, 19]
+  VALID_VALUES = [2, 3, 5, 7, 11, 13, 17, 19].freeze
 
   subject do
     Class.new do
       include ActiveModel::Validations
 
       attr_accessor :prime_numbers
-      validates_with Crm::Helpers::Validators::CrmMultienumValidator, attributes: [:prime_numbers], valid_values: VALID_VALUES
+      validates_with Crm::Helpers::Validators::CrmMultienumValidator,
+                     attributes: [:prime_numbers],
+                     valid_values: VALID_VALUES
     end.new
   end
 
