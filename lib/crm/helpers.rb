@@ -11,11 +11,9 @@ require 'crm/helpers/attributes'
 require 'crm/helpers/validations'
 require 'crm/helpers/version'
 
+require 'crm/helper'
+
 module Crm
   module Helpers
-    def self.included(base)
-      base.include Crm::Helpers::Attributes
-      base.include Crm::Helpers::Validations
-    end
   end
 end
