@@ -29,7 +29,7 @@ describe Crm::Helpers::Validators::CrmMultienumValidator, type: :validator do
     it 'should add an error message' do
       non_array_things.each do |non_array_thing|
         subject.prime_numbers = non_array_thing
-        subject.validate
+        subject.valid?
         expect(subject.errors[:prime_numbers]).to_not be_empty
       end
     end
@@ -51,7 +51,7 @@ describe Crm::Helpers::Validators::CrmMultienumValidator, type: :validator do
       it 'should add an error message' do
         non_prime_number_lists.each do |non_prime_number_list|
           subject.prime_numbers = non_prime_number_list
-          subject.validate
+          subject.valid?
           expect(subject.errors[:prime_numbers]).to_not be_empty
         end
       end
@@ -72,7 +72,7 @@ describe Crm::Helpers::Validators::CrmMultienumValidator, type: :validator do
       it 'should not add an error message' do
         prime_number_lists.each do |prime_number_list|
           subject.prime_numbers = prime_number_list
-          subject.validate
+          subject.valid?
           expect(subject.errors[:prime_numbers]).to be_empty
         end
       end

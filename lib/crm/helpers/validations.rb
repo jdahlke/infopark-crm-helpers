@@ -5,7 +5,11 @@ module Crm
       include ActiveModel::Validations
       include Crm::Helpers::Attributes
 
-      class_methods do
+      def self.included(base)
+        base.extend ClassMethods
+      end
+
+      module ClassMethods
         def mandatory_crm_attributes
           crm_attributes.select { |_, definition| definition[:mandatory] }.keys.sort.map(&:to_sym)
         end

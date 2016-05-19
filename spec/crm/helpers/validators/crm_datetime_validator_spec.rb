@@ -25,7 +25,7 @@ describe Crm::Helpers::Validators::CrmDatetimeValidator, type: :validator do
     it 'should add an error message' do
       non_datetime_things.each do |non_datetime_thing|
         subject.datetime = non_datetime_thing
-        subject.validate
+        subject.valid?
         expect(subject.errors[:datetime]).to_not be_empty
       end
     end
@@ -46,7 +46,7 @@ describe Crm::Helpers::Validators::CrmDatetimeValidator, type: :validator do
     it 'should not add errors' do
       datetime_things.each do |datetime_thing|
         subject.datetime = datetime_thing
-        subject.validate
+        subject.valid?
         expect(subject.errors[:datetime]).to be_empty
       end
     end
