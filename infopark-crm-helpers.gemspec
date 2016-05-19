@@ -5,7 +5,6 @@ require 'crm/helpers/version'
 
 rails_version = ENV['RAILS_VERSION'] || 'default'
 rails = case rails_version
-        when 'master' then { github: 'rails/rails' }
         when 'default' then '~> 4.0'
         else "~> #{rails_version}"
         end
