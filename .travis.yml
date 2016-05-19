@@ -1,4 +1,17 @@
 language: ruby
 rvm:
-  - 2.3.0
+  - 2.3.1
+  - 2.2.5
+  - 2.1.10
+
 before_install: gem install bundler -v 1.11.2
+install: bundle install --without development doc --retry=3
+script:
+  - bundle exec rake spec
+
+env:
+  global:
+    - secure: "dRGHULKMHj8/9Y7L1JMc+RwjD6c+djCBvQsewVGII+a5loiRQFV72zb5Td0JBPzGI2K1t3EXc2F8X8D+1QR+jpb0SFFSAUHzb2mvWU+FPixHfTxAPpktfiT+qAHFPkeaQMY86ktosE50+J555ke8YbtRKIBsqDbvZU+vnr3N6Ui4JhomCPMyCmnuFFATHoGBdhcrvWc1vY1Z7gK/qd0nhgyDb+sfOnbLinz7qR4oEI2nbGA6z5AzwfbD4JkXqagPirQy2tUJGAY71QVpDevg3qjfV2Hb9Ow1ESW9M0DsZZjFXXx6VJ4z9xikaqdauUMcJSCNMXtSK6OIUiy7Ln+WQKjDuGLxOLpG5oUxV7FrKEp63cQX9+6BDEPRuilwumZMBP0goE0kMFZmjai1bm3sMCddm08i05w9NraswxRHElBlPQxAXCDtiEQR2PKkI0G9j1/OheTvxn73GK0owPA6aOpOn52Jp+nwt8llZzPCLMvax4CmECESRvIJ7MN+ye1yre4IopXnbdZhHo/eoeGO0WTZL/t3qrmjGPyTljTkwGgp3LI+NxIoZG6UjOo2WJb6A3D8eZRbmMphZns1j7zcSUrCRNmpS6UmPsG1jExz+65LMSbScMs5xvCEtyW1X7qznf1NKLsfJxQUF3LlLSUrp/LoSTaDsrcR0E9qU9xt7/c="
+
+  matrix:
+    - "RAILS_VERSION=4.2.0"

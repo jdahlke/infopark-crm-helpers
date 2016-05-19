@@ -3,6 +3,13 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'crm/helpers/version'
 
+rails_version = ENV['RAILS_VERSION'] || 'default'
+rails = case rails_version
+        when 'master' then { github: 'rails/rails' }
+        when 'default' then '~> 4.0'
+        else "~> #{rails_version}"
+        end
+
 Gem::Specification.new do |spec|
   spec.name          = 'infopark-crm-helpers'
   spec.version       = Crm::Helpers::VERSION
@@ -19,11 +26,10 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activesupport'
-  spec.add_dependency 'activemodel'
+  spec.add_dependency 'activesupport', rails
+  spec.add_dependency 'activemodel', rails
+  spec.add_dependency 'bundler', '~> 1.11'
   spec.add_dependency 'infopark_webcrm_sdk'
-
-  spec.add_development_dependency 'bundler', '~> 1.11'
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_dependency 'rake', '~> 10.0'
+  spec.add_dependency 'rspec', '~> 3.0'
 end
