@@ -1,10 +1,9 @@
 module Crm
   module Helpers
     module Attributes
-      extend ActiveSupport::Concern
-
       def self.included(base)
         base.extend ClassMethods
+        base.include InstanceMethods
       end
 
       module ClassMethods
@@ -67,10 +66,10 @@ module Crm
         end
       end
 
-      protected
-
-      def crm_attributes
-        @crm_attributes ||= {}
+      module InstanceMethods
+        def crm_attributes
+          @crm_attributes ||= {}
+        end
       end
     end
   end

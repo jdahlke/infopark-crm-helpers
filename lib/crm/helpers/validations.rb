@@ -1,11 +1,12 @@
 module Crm
   module Helpers
     module Validations
-      extend ActiveSupport::Concern
-      include ActiveModel::Validations
-      include Crm::Helpers::Attributes
-
       def self.included(base)
+        base.extend ActiveModel::Naming
+        base.include ActiveModel::Conversion
+        base.include ActiveModel::Validations
+        base.include Crm::Helpers::Attributes
+
         base.extend ClassMethods
       end
 

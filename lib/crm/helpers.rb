@@ -13,8 +13,9 @@ require 'crm/helpers/version'
 
 module Crm
   module Helpers
-    extend ActiveSupport::Concern
-    include Crm::Helpers::Attributes
-    include Crm::Helpers::Validations
+    def self.included(base)
+      base.include Crm::Helpers::Attributes
+      base.include Crm::Helpers::Validations
+    end
   end
 end
