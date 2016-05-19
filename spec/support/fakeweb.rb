@@ -1,4 +1,4 @@
-# This fixes an issue with someone™ trying to call
+# This fixes an issue with someone (tm) trying to call
 # FakeWeb::StubSocket#read_timeout=, which does not exist.
 module FakeWeb
   class StubSocket
