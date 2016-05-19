@@ -3,7 +3,11 @@ module Crm
     module Attributes
       extend ActiveSupport::Concern
 
-      class_methods do
+      def self.included(base)
+        base.extend ClassMethods
+      end
+
+      module ClassMethods
         mattr_accessor :crm_type
 
         def represents_crm_type(type)

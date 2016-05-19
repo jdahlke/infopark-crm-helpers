@@ -25,7 +25,7 @@ describe Crm::Helpers::Validators::CrmListValidator, type: :validator do
     it 'should add an error message' do
       non_array_things.each do |non_array_thing|
         subject.list = non_array_thing
-        subject.validate
+        subject.valid?
         expect(subject.errors[:list]).to_not be_empty
       end
     end
@@ -46,7 +46,7 @@ describe Crm::Helpers::Validators::CrmListValidator, type: :validator do
     it 'should not add an error message' do
       array_things.each do |array_thing|
         subject.list = array_thing
-        subject.validate
+        subject.valid?
         expect(subject.errors[:list]).to be_empty
       end
     end
