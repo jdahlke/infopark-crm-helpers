@@ -20,7 +20,7 @@ module Crm
           raise "#{name}.represents_crm_type(type) needs to be called to fetch its CRM attributes." if crm_type.blank?
 
           type = Crm::Type.find(crm_type)
-          @crm_attributes.merge!(type.standard_attribute_definitions)
+          @crm_attributes = type.standard_attribute_definitions
           @crm_attributes.merge!(type.attribute_definitions)
         end
 

@@ -9,7 +9,7 @@ describe Crm::Helpers::Attributes do
 
   describe '.represents_crm_type' do
     it 'should set the CRM type for this object' do
-      crm_type = :our_crm_type
+      crm_type = :account
       subject.represents_crm_type(crm_type)
       expect(subject.crm_type).to eq(crm_type)
     end
@@ -18,7 +18,8 @@ describe Crm::Helpers::Attributes do
   describe '.crm_attributes' do
     context 'with no CRM type set' do
       it 'should raise an error' do
-        expect { subject.crm_attributes }.to raise_error(Crm::Errors::ResourceNotFound)
+        subject.represents_crm_type(nil)
+        expect { subject.crm_attributes }.to raise_error(RuntimeError)
       end
     end
 
