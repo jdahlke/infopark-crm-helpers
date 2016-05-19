@@ -1,0 +1,341 @@
+{
+  "base_type": "Type",
+  "type_id": "type",
+  "changed_at": "2016-05-10T20:38:59+00:00",
+  "created_at": "2015-06-17T12:18:17+00:00",
+  "deleted_at": null,
+  "updated_at": "2016-05-10T20:38:59+00:00",
+  "updated_by": "webservice",
+  "version": 8,
+  "id": "contact",
+  "attribute_definitions": {},
+  "attribute_order": [],
+  "standard_attribute_definitions": {
+    "account_id": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Account",
+      "update": true
+    },
+    "base_type": {
+      "attribute_type": "string",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Base Type",
+      "update": false
+    },
+    "changed_at": {
+      "attribute_type": "datetime",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Changed",
+      "update": false
+    },
+    "country": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Country",
+      "update": true
+    },
+    "created_at": {
+      "attribute_type": "datetime",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Created",
+      "update": false
+    },
+    "deleted_at": {
+      "attribute_type": "datetime",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Deleted",
+      "update": false
+    },
+    "email": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Email",
+      "update": true
+    },
+    "extended_address": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Address Extension",
+      "update": true
+    },
+    "fax": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Fax",
+      "update": true
+    },
+    "first_name": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "First Name",
+      "update": true
+    },
+    "gender": {
+      "attribute_type": "enum",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Gender",
+      "update": true,
+      "valid_values": [
+        "N",
+        "M",
+        "F"
+      ]
+    },
+    "id": {
+      "attribute_type": "string",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "ID",
+      "update": false
+    },
+    "job_title": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Job Title",
+      "update": true
+    },
+    "language": {
+      "attribute_type": "enum",
+      "create": true,
+      "mandatory": true,
+      "read": true,
+      "title": "Language",
+      "update": true,
+      "valid_values": []
+    },
+    "last_name": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": true,
+      "read": true,
+      "title": "Last Name",
+      "update": true
+    },
+    "locality": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Locality",
+      "update": true
+    },
+    "login": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Username",
+      "update": true
+    },
+    "merged_into_id": {
+      "attribute_type": "string",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Merged Into",
+      "update": false
+    },
+    "mobile_phone": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Mobile Phone",
+      "update": true
+    },
+    "name_prefix": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Name Prefix",
+      "update": true
+    },
+    "org_name_address": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Address Company Name",
+      "update": true
+    },
+    "org_unit_address": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Address Company Unit",
+      "update": true
+    },
+    "password_present": {
+      "attribute_type": "boolean",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Password Present",
+      "update": false
+    },
+    "password_requested_at": {
+      "attribute_type": "datetime",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Password Requested",
+      "update": false
+    },
+    "password_updated_at": {
+      "attribute_type": "datetime",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Password Updated",
+      "update": false
+    },
+    "phone": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Phone",
+      "update": true
+    },
+    "postalcode": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Postal Code",
+      "update": true
+    },
+    "region": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Region",
+      "update": true
+    },
+    "role_names": {
+      "attribute_type": "list",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "User Roles",
+      "update": true
+    },
+    "street_address": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Street Address",
+      "update": true
+    },
+    "tags": {
+      "attribute_type": "list",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Tags",
+      "update": true
+    },
+    "type_id": {
+      "attribute_type": "string",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Type",
+      "update": false
+    },
+    "updated_at": {
+      "attribute_type": "datetime",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Updated",
+      "update": false
+    },
+    "updated_by": {
+      "attribute_type": "string",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Updated by",
+      "update": false
+    },
+    "version": {
+      "attribute_type": "integer",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Version",
+      "update": false
+    },
+    "want_email": {
+      "attribute_type": "boolean",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Accepts Emails",
+      "update": true
+    },
+    "want_geo_location": {
+      "attribute_type": "boolean",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Assign GEO Data",
+      "update": true
+    },
+    "want_phonecall": {
+      "attribute_type": "boolean",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Accepts Phone Calls",
+      "update": true
+    },
+    "want_snailmail": {
+      "attribute_type": "boolean",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Accepts Letters",
+      "update": true
+    }
+  },
+  "detail_info_template": "{% if contact.job_title %} - {{contact.job_title}}{% endif %}{% if contact.email %} - {{contact.email}}{% endif %}{% if contact.phone %} - {{contact.phone}}{% endif %}",
+  "icon_css_class": "",
+  "languages": [
+    "de",
+    "en"
+  ],
+  "states": [],
+  "item_base_type": "Contact"
+}

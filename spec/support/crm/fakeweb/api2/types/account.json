@@ -1,0 +1,215 @@
+{
+  "base_type": "Type",
+  "type_id": "type",
+  "changed_at": "2015-06-17T14:53:31+00:00",
+  "created_at": "2015-06-17T12:18:49+00:00",
+  "deleted_at": null,
+  "updated_at": "2015-06-17T14:53:31+00:00",
+  "updated_by": "webservice",
+  "version": 6,
+  "id": "account",
+  "attribute_definitions": {
+  },
+  "attribute_order": [
+    "custom_testing"
+  ],
+  "standard_attribute_definitions": {
+    "account_group": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Company Group",
+      "update": true
+    },
+    "base_type": {
+      "attribute_type": "string",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Base Type",
+      "update": false
+    },
+    "changed_at": {
+      "attribute_type": "datetime",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Changed",
+      "update": false
+    },
+    "country": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Country",
+      "update": true
+    },
+    "created_at": {
+      "attribute_type": "datetime",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Created",
+      "update": false
+    },
+    "deleted_at": {
+      "attribute_type": "datetime",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Deleted",
+      "update": false
+    },
+    "extended_address": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Address Extension",
+      "update": true
+    },
+    "home_page": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Homepage",
+      "update": true
+    },
+    "id": {
+      "attribute_type": "string",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "ID",
+      "update": false
+    },
+    "locality": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Locality",
+      "update": true
+    },
+    "merged_into_id": {
+      "attribute_type": "string",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Merged Into",
+      "update": false
+    },
+    "name": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": true,
+      "read": true,
+      "title": "Name",
+      "update": true
+    },
+    "org_name_address": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Address Company Name",
+      "update": true
+    },
+    "org_unit_address": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Address Company Unit",
+      "update": true
+    },
+    "phone": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Phone",
+      "update": true
+    },
+    "postalcode": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Postal Code",
+      "update": true
+    },
+    "region": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Region",
+      "update": true
+    },
+    "street_address": {
+      "attribute_type": "string",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Street Address",
+      "update": true
+    },
+    "tags": {
+      "attribute_type": "list",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Tags",
+      "update": true
+    },
+    "type_id": {
+      "attribute_type": "string",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Type",
+      "update": false
+    },
+    "updated_at": {
+      "attribute_type": "datetime",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Updated",
+      "update": false
+    },
+    "updated_by": {
+      "attribute_type": "string",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Updated by",
+      "update": false
+    },
+    "version": {
+      "attribute_type": "integer",
+      "create": false,
+      "mandatory": false,
+      "read": true,
+      "title": "Version",
+      "update": false
+    },
+    "want_geo_location": {
+      "attribute_type": "boolean",
+      "create": true,
+      "mandatory": false,
+      "read": true,
+      "title": "Assign GEO Data",
+      "update": true
+    }
+  },
+  "detail_info_template": "{% if account.account_group %} - Group: {{account.account_group}}{% endif %}{% if account.home_page %} - {{account.home_page}}{% endif %}{% if account.phone %} - {{account.phone}}{% endif %}",
+  "icon_css_class": "",
+  "languages": [],
+  "states": [],
+  "item_base_type": "Account"
+}
