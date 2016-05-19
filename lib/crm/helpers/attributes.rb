@@ -3,7 +3,6 @@ module Crm
     module Attributes
       def self.included(base)
         base.extend ClassMethods
-        base.include InstanceMethods
       end
 
       module ClassMethods
@@ -66,10 +65,8 @@ module Crm
         end
       end
 
-      module InstanceMethods
-        def crm_attributes
-          @crm_attributes ||= {}
-        end
+      def crm_attributes
+        @crm_attributes ||= {}
       end
     end
   end
