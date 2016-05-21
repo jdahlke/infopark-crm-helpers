@@ -6,14 +6,12 @@ module Crm
       end
 
       module ClassMethods
+        attr_reader :crm_type
+
         def represents_crm_type(type)
           @crm_type = type
           @crm_attributes = {}.with_indifferent_access
           crm_attr_accessor(*mandatory_crm_attributes)
-        end
-
-        def crm_type
-          @crm_type
         end
 
         def mandatory_crm_attributes
