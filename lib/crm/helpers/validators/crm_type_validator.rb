@@ -2,7 +2,7 @@ module Crm
   module Helpers
     module Validators
       class CrmTypeValidator < ActiveModel::Validator
-        include Crm::Helpers::Validators::CrmValidatorHelper
+        include CrmValidatorHelper
 
         def validate(record)
           crm_type_definition(record).each_pair do |attribute, definition|

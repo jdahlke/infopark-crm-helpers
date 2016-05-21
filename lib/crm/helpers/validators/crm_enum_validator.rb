@@ -1,8 +1,8 @@
 module Crm
   module Helpers
     module Validators
-      class CrmEnumValidator < ActiveModel::EachValidator
-        include Crm::Helpers::Validators::CrmValidatorHelper
+      class CrmEnumValidator < CrmEachValidator
+        include CrmValidatorHelper
 
         def validate_each(record, attribute, _)
           definition = crm_attribute_definition(record, attribute)
