@@ -2,6 +2,8 @@ module Crm
   module Helpers
     module Validators
       class CrmDatetimeValidator < ActiveModel::EachValidator
+        include Crm::Helpers::Validators::CrmAttributeValidatorHelper
+
         def validate_each(record, attribute, value)
           return if value.is_a?(Date)
           return if value.is_a?(Time)
