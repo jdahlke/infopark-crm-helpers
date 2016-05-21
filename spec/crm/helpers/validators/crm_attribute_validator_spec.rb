@@ -52,9 +52,6 @@ describe Crm::Helpers::Validators::CrmAttributeValidator, type: :validator do
 
       context "with a blank attribute of type #{attribute_type}" do
         it 'should not validate that attribute' do
-          subject = class_with_validations.new
-
-          allow(subject).to receive(attribute_reader).and_return(nil)
           expect(subject).to_not receive(:validates_with).with(crm_validator, anything)
           subject.valid?
         end
@@ -62,8 +59,6 @@ describe Crm::Helpers::Validators::CrmAttributeValidator, type: :validator do
 
       context "with a present attribute of type #{attribute_type}" do
         it "should validate with #{validator}" do
-          subject = class_with_validations.new
-
           allow(subject).to receive(attribute_reader).and_return(value)
           expect(subject).to receive(:validates_with).with(crm_validator, anything)
           subject.valid?
