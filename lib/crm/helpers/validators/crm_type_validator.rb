@@ -7,7 +7,10 @@ module Crm
         def validate(record)
           crm_type_definition(record).each_pair do |attribute, definition|
             record.validates_presence_of attribute if definition[:mandatory]
-            value = record.send(attribute.to_sym)
+
+            reader = attribute.to_sym
+            next unless record.respond_to?(reader)
+            value = record.send(reader)
             next if value.blank?
 
             attribute_type = definition['attribute_type']
