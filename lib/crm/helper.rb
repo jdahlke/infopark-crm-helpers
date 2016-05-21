@@ -1,8 +1,5 @@
 module Crm
   module Helper
-    def self.included(base)
-      base.include Crm::Helpers::Attributes
-      base.include Crm::Helpers::Validations
-    end
+    include Crm::Helpers::Attributes
   end
 end
