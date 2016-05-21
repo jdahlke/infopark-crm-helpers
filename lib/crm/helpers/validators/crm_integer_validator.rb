@@ -1,9 +1,7 @@
 module Crm
   module Helpers
     module Validators
-      class CrmIntegerValidator < ActiveModel::EachValidator
-        include Crm::Helpers::Validators::CrmAttributeValidatorHelper
-
+      class CrmIntegerValidator < CrmEachValidator
         def validate_each(record, attribute, _)
           record.validates_numericality_of attribute, only_integer: true
         end

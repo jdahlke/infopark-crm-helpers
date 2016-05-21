@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Crm::Helpers::Validators::CrmAttributeValidator, type: :validator do
+describe Crm::Helpers::Validators::CrmTypeValidator, type: :validator do
   VALIDATORS = {
     boolean: Crm::Helpers::Validators::CrmBooleanValidator,
     datetime: Crm::Helpers::Validators::CrmDatetimeValidator,
@@ -40,9 +40,7 @@ describe Crm::Helpers::Validators::CrmAttributeValidator, type: :validator do
         allow(class_with_validations).to receive(:crm_attributes).and_return(crm_attributes)
         class_with_validations.represents_crm_type :contact
         class_with_validations.crm_attr_reader attribute_reader
-        all_attributes = *class_with_validations.crm_attr_readers
-        class_with_validations.validates_with Crm::Helpers::Validators::CrmAttributeValidator,
-                                              attributes: all_attributes
+        class_with_validations.validates_with Crm::Helpers::Validators::CrmTypeValidator
         class_with_validations
       end
 

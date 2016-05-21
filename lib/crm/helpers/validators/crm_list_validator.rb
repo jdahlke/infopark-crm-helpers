@@ -1,9 +1,7 @@
 module Crm
   module Helpers
     module Validators
-      class CrmListValidator < ActiveModel::EachValidator
-        include Crm::Helpers::Validators::CrmAttributeValidatorHelper
-
+      class CrmListValidator < CrmEachValidator
         def validate_each(record, attribute, value)
           return if value.is_a?(Array)
 
