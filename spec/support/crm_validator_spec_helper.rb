@@ -1,7 +1,7 @@
 module CrmValidatorSpecHelper
   include RSpec::Mocks::ExampleMethods
 
-  def run_specs_for_crm_validator!(validator, options = {})
+  def run_specs_for_crm_validator(validator, options = {})
     describe validator, type: :validator do
       subject { setup_subject(validator, options).new }
 

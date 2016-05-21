@@ -21,4 +21,4 @@ options = {
   valid_values: valid_values
 }
 
-run_specs_for_crm_validator!(validator, options)
+run_specs_for_crm_validator(validator, options)
