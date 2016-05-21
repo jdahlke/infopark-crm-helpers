@@ -2,7 +2,7 @@ module Crm
   module Helpers
     module Validators
       class CrmMultienumValidator < ActiveModel::EachValidator
-        include Crm::Helpers::Validators::CrmAttributeValidatorHelper
+        include Crm::Helpers::Validators::CrmValidatorHelper
 
         def validate_each(record, attribute, values)
           return unless a_multienum?(record, attribute, values)
