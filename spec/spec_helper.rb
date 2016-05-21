@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'crm/helpers'
 
 require 'support/crm_helper'
+require 'support/crm_validator_spec_helper'
 require 'support/fakeweb'
 require 'fakeweb'
 require 'pry'

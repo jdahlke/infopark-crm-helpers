@@ -6,11 +6,18 @@ module Crm
       end
 
       module ClassMethods
-        mattr_accessor :crm_type
-
         def represents_crm_type(type)
-          self.crm_type = type
+          @crm_type = type
           @crm_attributes = {}.with_indifferent_access
+          crm_attr_accessor(*mandatory_crm_attributes)
+        end
+
+        def crm_type
+          @crm_type
+        end
+
+        def mandatory_crm_attributes
+          crm_attributes.select { |_, definition| definition[:mandatory] }.keys.sort.map(&:to_sym)
         end
 
         def crm_attributes
@@ -37,7 +44,7 @@ module Crm
         end
 
         def crm_attr_readers
-          @crm_attr_readers ||= []
+          @crm_attr_readers.sort ||= []
         end
 
         def crm_attr_writer(*attributes)
@@ -56,7 +63,7 @@ module Crm
         end
 
         def crm_attr_writers
-          @crm_attr_writers || []
+          @crm_attr_writers.sort || []
         end
 
         def crm_attr_accessor(*attributes)
