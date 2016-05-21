@@ -2,8 +2,6 @@ module Crm
   module Helpers
     module Validators
       class CrmAttributeValidator < CrmEachValidator
-        include CrmValidatorHelper
-
         def validate_each(record, attribute, value)
           definition = crm_attribute_definition(record, attribute)
 
