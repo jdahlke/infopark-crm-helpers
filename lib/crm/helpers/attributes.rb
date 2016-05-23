@@ -22,9 +22,7 @@ module Crm
           return @crm_attributes if @crm_attributes.present?
           raise "#{name}.represents_crm_type(type) needs to be called to fetch its CRM attributes." if crm_type.blank?
 
-          type = Crm::Type.find(crm_type)
-          @crm_attributes = type.standard_attribute_definitions
-          @crm_attributes.merge!(type.attribute_definitions)
+          collect_crm_attributes_data(crm_type)
         end
 
         def crm_attr_reader(*attributes)
@@ -67,6 +65,18 @@ module Crm
         def crm_attr_accessor(*attributes)
           crm_attr_reader(*attributes)
           crm_attr_writer(*attributes)
+        end
+
+        protected
+
+        def collect_crm_attributes_data(crm_type)
+          type = Crm::Type.find(crm_type)
+          @crm_attributes = type.standard_attribute_definitions
+          # This is a lovely hack, because the language attribute does not get
+          # the correct valid values in #standard_attribute_definitions. Maybe
+          # soon, when Thomas Ritz is back from warkation...
+          @crm_attributes[:language][:valid_values] += type.languages if @crm_attributes[:language].present?
+          @crm_attributes.merge!(type.attribute_definitions)
         end
       end
 

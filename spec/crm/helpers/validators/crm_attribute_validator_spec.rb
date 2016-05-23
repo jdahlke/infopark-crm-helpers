@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Crm::Helpers::Validators::CrmAttributeValidator, type: :validator do
-  VALIDATORS = {
+  CRM_ATTRIBUTE_VALIDATORS = {
     boolean: Crm::Helpers::Validators::CrmBooleanValidator,
     datetime: Crm::Helpers::Validators::CrmDatetimeValidator,
     enum: Crm::Helpers::Validators::CrmEnumValidator,
@@ -13,7 +13,7 @@ describe Crm::Helpers::Validators::CrmAttributeValidator, type: :validator do
   }.with_indifferent_access
 
   describe '#validate_each' do
-    VALIDATORS.each_pair do |attribute_type, validator|
+    CRM_ATTRIBUTE_VALIDATORS.each_pair do |attribute_type, validator|
       let(:crm_attribute_type) { attribute_type }
       let(:crm_validator) { validator }
       let(:attribute_reader) { "#{crm_attribute_type}_attribute".to_sym }
