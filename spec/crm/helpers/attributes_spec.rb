@@ -75,46 +75,6 @@ describe Crm::Helpers::Attributes do
   end
 
   describe '.crm_attr_reader' do
-    let(:methods) { %i(first_name last_name) }
-
-    context 'with undefined reader methods' do
-      it 'should define reader methods' do
-        subject.represents_crm_type(:contact)
-        subject.crm_attr_reader(*methods)
-        instance = subject.new
-
-        methods.each do |method|
-          expect(method).to be_in(instance.methods)
-        end
-      end
-    end
-
-    context 'with already defined reader methods' do
-      subject do
-        Class.new do
-          include Crm::Helpers::Attributes
-
-          represents_crm_type :contact
-          crm_attr_reader(*methods)
-
-          def first_name
-            'Bob'
-          end
-
-          def last_name
-            'Builder'
-          end
-        end.new
-      end
-
-      it 'should not overwrite the existing reader method definitions' do
-        expect(subject.first_name).to eq('Bob')
-        expect(subject.last_name).to eq('Builder')
-      end
-    end
-  end
-
-  describe '.crm_attr_reader' do
     let(:crm_methods) { %i(first_name last_name) }
 
     context 'with undefined reader methods' do
@@ -145,11 +105,11 @@ describe Crm::Helpers::Attributes do
           crm_attr_reader :first_name, :last_name
 
           def first_name
-            'Bob'
+            'Amanda'
           end
 
           def last_name
-            'Builder'
+            'Tory'
           end
         end
       end
@@ -157,8 +117,8 @@ describe Crm::Helpers::Attributes do
       it 'should not overwrite the existing reader method definitions' do
         instance = subject.new
 
-        expect(instance.first_name).to eq('Bob')
-        expect(instance.last_name).to eq('Builder')
+        expect(instance.first_name).to eq('Amanda')
+        expect(instance.last_name).to eq('Tory')
       end
 
       it 'should add the reader methods to .crm_attr_readers' do
@@ -210,14 +170,14 @@ describe Crm::Helpers::Attributes do
 
       pending 'should not overwrite the existing writer method definitions' do
         instance = subject.new
-        instance.first_name = 'Bob'
-        instance.last_name = 'Builder'
+        instance.first_name = 'Amanda'
+        instance.last_name = 'Tory'
 
-        expect(instance.first_name).to eq('BOB')
-        expect(instance.last_name).to eq('BUILDER')
+        expect(instance.first_name).to eq('AMANDA')
+        expect(instance.last_name).to eq('TORY')
       end
 
-      it 'should add the reader methods to .crm_attr_readers' do
+      it 'should add the writer methods to .crm_attr_writers' do
         expect(subject.crm_attr_writers).to eq(%i(first_name= language= last_name=))
       end
     end
