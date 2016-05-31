@@ -1,5 +1,6 @@
 [![infopark-crm-helpers build status on Travis CI](https://travis-ci.org/Skudo/infopark-crm-helpers.svg?branch=develop)](https://travis-ci.org/Skudo/infopark-crm-helpers)
 [![infopark-crm-helpers on CodeClimate](https://codeclimate.com/github/Skudo/infopark-crm-helpers/badges/gpa.svg)](https://codeclimate.com/github/Skudo/infopark-crm-helpers)
+[![infopark-crm-helpers test coverage on CodeClimate](https://codeclimate.com/github/Skudo/infopark-crm-helpers/badges/coverage.svg)](https://codeclimate.com/github/Skudo/infopark-crm-helpers/coverage)
 
 # infopark-crm-helpers
 
