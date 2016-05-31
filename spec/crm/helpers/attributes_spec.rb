@@ -158,6 +158,10 @@ describe Crm::Helpers::Attributes do
           crm_attr_reader :first_name, :last_name
           crm_attr_writer :first_name, :last_name
 
+          def initialize
+            @crm_attributes = {}
+          end
+
           def first_name=(value)
             @crm_attributes[:first_name] = value.upcase
           end
@@ -168,7 +172,7 @@ describe Crm::Helpers::Attributes do
         end
       end
 
-      pending 'should not overwrite the existing writer method definitions' do
+      it 'should not overwrite the existing writer method definitions' do
         instance = subject.new
         instance.first_name = 'Amanda'
         instance.last_name = 'Tory'
