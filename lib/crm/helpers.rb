@@ -5,7 +5,6 @@ require 'infopark_webcrm_sdk'
 require 'crm/helpers/validators/crm_validator_helper'
 require 'crm/helpers/validators/crm_each_validator'
 
-require 'crm/helpers/validators/crm_attribute_validator'
 require 'crm/helpers/validators/crm_boolean_validator'
 require 'crm/helpers/validators/crm_datetime_validator'
 require 'crm/helpers/validators/crm_enum_validator'
