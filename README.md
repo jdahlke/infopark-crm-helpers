@@ -30,7 +30,7 @@ No direct configuration of `infopark-crm-helpers` is required. Refer to [infopar
 
 ## Examples
 
-### Create your class
+### Create your own class
 
 Let's build a class `Customer` which is based on WebCRM contacts.
 
@@ -171,23 +171,25 @@ same_customer.first_name
 
 Each CRM attribute type has its own validator:
 
-  * Crm::Helpers::Validators::CrmBooleanValidator
-  * Crm::Helpers::Validators::CrmDatetimeValidator
-  * Crm::Helpers::Validators::CrmEnumValidator
-  * Crm::Helpers::Validators::CrmIntegerValidator
-  * Crm::Helpers::Validators::CrmListValidator
-  * Crm::Helpers::Validators::CrmMultienumValidator
-  * Crm::Helpers::Validators::CrmStringValidator
-  * Crm::Helpers::Validators::CrmTextValidator
+  * `Crm::Helpers::Validators::CrmBooleanValidator`
+  * `Crm::Helpers::Validators::CrmDatetimeValidator`
+  * `Crm::Helpers::Validators::CrmEnumValidator`
+  * `Crm::Helpers::Validators::CrmIntegerValidator`
+  * `Crm::Helpers::Validators::CrmListValidator`
+  * `Crm::Helpers::Validators::CrmMultienumValidator`
+  * `Crm::Helpers::Validators::CrmStringValidator`
+  * `Crm::Helpers::Validators::CrmTextValidator`
 
 You can use those to explicitly validate attributes for a certain format.
 
 ```ruby
-validates_with Crm::Helpers::Validators::CrmBooleanValidator, attributes: [:custom_has_ps4, :custom_has_xbox_one]
+validates_with Crm::Helpers::Validators::CrmBooleanValidator,
+               attributes: [:custom_has_ps4, :custom_has_xbox_one]
 ```
 
 Most of the time, if you want to validate certain attributes against their CRM type definitions, you just use `Crm::Helpers::Validators::CrmAttributeValidator` though.
 
 ```ruby
-validates_with Crm::Helpers::Validators::CrmAttributeValidator, attributes: [:custom_favourite_genres, :custom_favourite_platform]
+validates_with Crm::Helpers::Validators::CrmAttributeValidator,
+               attributes: [:custom_favourite_genres, :custom_favourite_platform]
 ```
