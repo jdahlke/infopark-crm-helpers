@@ -1,0 +1,7 @@
+{
+  "id": "not_found",
+  "message": "Items could not be found.",
+  "missing_ids": [
+    "does_not_exist"
+  ]
+}

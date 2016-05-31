@@ -2,15 +2,16 @@ require 'spec_helper'
 
 include CrmAttributeValidatorSpecHelper
 
-validator = Crm::Helpers::Validators::CrmListValidator
+validator = Crm::Helpers::Validators::CrmStringValidator
 
 attribute_type = {
-  attribute_type: 'datetime',
-  mandatory: false
+  attribute_type: 'string',
+  mandatory: false,
+  max_length: 16
 }.with_indifferent_access
 
-invalid_values = ['Hello', 123.456, 2.0, { foo: :bar }, true]
-valid_values = [[2, 3, 5, 7]]
+invalid_values = ['This string is way too long']
+valid_values = ['This is short']
 
 options = {
   crm_attributes: {

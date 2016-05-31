@@ -2,15 +2,15 @@ require 'spec_helper'
 
 include CrmAttributeValidatorSpecHelper
 
-validator = Crm::Helpers::Validators::CrmListValidator
+validator = Crm::Helpers::Validators::CrmBooleanValidator
 
 attribute_type = {
-  attribute_type: 'datetime',
+  attribute_type: 'boolean',
   mandatory: false
 }.with_indifferent_access
 
-invalid_values = ['Hello', 123.456, 2.0, { foo: :bar }, true]
-valid_values = [[2, 3, 5, 7]]
+invalid_values = ['Hello', 123, ['Haha'], { foo: :bar }]
+valid_values = [true, false]
 
 options = {
   crm_attributes: {

@@ -1,27 +1,28 @@
 module Crm
   module Helpers
     module Attributes
-      extend ActiveSupport::Concern
-
       def self.included(base)
         base.extend ClassMethods
       end
 
       module ClassMethods
-        mattr_accessor :crm_type
+        attr_reader :crm_type
 
         def represents_crm_type(type)
-          self.crm_type = type
+          @crm_type = type
           @crm_attributes = {}.with_indifferent_access
+          crm_attr_accessor(*mandatory_crm_attributes)
+        end
+
+        def mandatory_crm_attributes
+          crm_attributes.select { |_, definition| definition[:mandatory] }.keys.sort.map(&:to_sym)
         end
 
         def crm_attributes
           return @crm_attributes if @crm_attributes.present?
           raise "#{name}.represents_crm_type(type) needs to be called to fetch its CRM attributes." if crm_type.blank?
 
-          type = Crm::Type.find(crm_type)
-          @crm_attributes.merge!(type.standard_attribute_definitions)
-          @crm_attributes.merge!(type.attribute_definitions)
+          collect_crm_attributes_data(crm_type)
         end
 
         def crm_attr_reader(*attributes)
@@ -39,7 +40,7 @@ module Crm
         end
 
         def crm_attr_readers
-          @crm_attr_readers ||= []
+          @crm_attr_readers.sort ||= []
         end
 
         def crm_attr_writer(*attributes)
@@ -58,16 +59,26 @@ module Crm
         end
 
         def crm_attr_writers
-          @crm_attr_writers || []
+          @crm_attr_writers.sort || []
         end
 
         def crm_attr_accessor(*attributes)
           crm_attr_reader(*attributes)
           crm_attr_writer(*attributes)
         end
-      end
 
-      protected
+        protected
+
+        def collect_crm_attributes_data(crm_type)
+          type = Crm::Type.find(crm_type)
+          @crm_attributes = type.standard_attribute_definitions
+          # This is a lovely hack, because the language attribute does not get
+          # the correct valid values in #standard_attribute_definitions. Maybe
+          # soon, when Thomas Ritz is back from warkation...
+          @crm_attributes[:language][:valid_values] += type.languages if @crm_attributes[:language].present?
+          @crm_attributes.merge!(type.attribute_definitions)
+        end
+      end
 
       def crm_attributes
         @crm_attributes ||= {}

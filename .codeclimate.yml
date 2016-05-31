@@ -1,0 +1,14 @@
+ratings:
+  paths:
+    - 'lib/**/*'
+    - 'spec/**/*'
+
+engines:
+  duplication:
+    enabled: true
+    exclude_fingerprints:
+    - '1266db484c8bb3c808ac9d572ba54770'
+    - '37c399f0597fc2bc85085f68529d3426'
+    config:
+      languages:
+        ruby:
