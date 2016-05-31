@@ -14,6 +14,14 @@ describe Crm::Helpers::Attributes do
     %i(amanda_tory mandatory)
   end
 
+  let(:user_data) do
+    {
+      language: 'en',
+      first_name: 'Amanda',
+      last_name: 'Tory'
+    }
+  end
+
   subject do
     Class.new do
       include Crm::Helpers::Attributes
@@ -78,9 +86,13 @@ describe Crm::Helpers::Attributes do
     let(:crm_methods) { %i(first_name last_name) }
 
     context 'with undefined reader methods' do
-      it 'should define reader methods' do
+      before :each do
         subject.represents_crm_type(:contact)
         subject.crm_attr_reader(*crm_methods)
+        allow(subject).to receive(:crm_attributes).and_return(user_data)
+      end
+
+      it 'should define reader methods' do
         instance = subject.new
 
         crm_methods.each do |crm_method|
@@ -89,10 +101,15 @@ describe Crm::Helpers::Attributes do
       end
 
       it 'should add the reader methods to .crm_attr_readers' do
-        subject.represents_crm_type(:contact)
-        subject.crm_attr_reader(*crm_methods)
-
         expect(subject.crm_attr_readers).to eq(%i(first_name language last_name))
+      end
+
+      it 'should read from the crm_attributes hash' do
+        instance = subject.new
+
+        user_data.keys.each do |attribute|
+          expect(instance.send(attribute)).to eq(instance.crm_attributes[attribute])
+        end
       end
     end
 
@@ -131,9 +148,12 @@ describe Crm::Helpers::Attributes do
     let(:crm_methods) { %i(first_name last_name) }
 
     context 'with undefined writer methods' do
-      it 'should define writer methods' do
+      before :each do
         subject.represents_crm_type(:contact)
         subject.crm_attr_writer(*crm_methods)
+      end
+
+      it 'should define writer methods' do
         instance = subject.new
 
         crm_methods.each do |crm_method|
@@ -141,11 +161,17 @@ describe Crm::Helpers::Attributes do
         end
       end
 
-      it 'should add the reader methods to .crm_attr_readers' do
-        subject.represents_crm_type(:contact)
-        subject.crm_attr_writer(*crm_methods)
-
+      it 'should add the writer methods to .crm_attr_writers' do
         expect(subject.crm_attr_writers).to eq(%i(first_name= language= last_name=))
+      end
+
+      it 'should write into the crm_attributes hash' do
+        instance = subject.new
+
+        user_data.each_pair do |attribute, value|
+          instance.send("#{attribute}=", value)
+          expect(instance.crm_attributes[attribute]).to eq(value)
+        end
       end
     end
 
