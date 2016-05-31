@@ -1,6 +1,11 @@
+ratings:
+  paths:
+    - 'lib/**/*'
+    - 'spec/**/*'
+
 engines:
   duplication:
     enabled: true
     config:
       languages:
-      - ruby
+        ruby:
