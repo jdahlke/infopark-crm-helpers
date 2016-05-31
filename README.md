@@ -187,10 +187,3 @@ You can use those to explicitly validate attributes for a certain format.
 validates_with Crm::Helpers::Validators::CrmBooleanValidator,
                attributes: [:custom_has_ps4, :custom_has_xbox_one]
 ```
-
-Most of the time, if you want to validate certain attributes against their CRM type definitions, you just use `Crm::Helpers::Validators::CrmAttributeValidator` though.
-
-```ruby
-validates_with Crm::Helpers::Validators::CrmAttributeValidator,
-               attributes: [:custom_favourite_genres, :custom_favourite_platform]
-```
