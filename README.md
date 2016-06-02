@@ -188,3 +188,59 @@ You can use those to explicitly validate attributes for a certain format.
 validates_with Crm::Helpers::Validators::CrmBooleanValidator,
                attributes: [:custom_has_ps4, :custom_has_xbox_one]
 ```
+
+## Finders
+
+```ruby
+class Customer
+  include ActiveModel::Validations
+  include Crm::Helpers::Attributes
+  include Crm::Helpers::Finders
+
+  represents_crm_type :contact
+
+  crm_attr_accessor :first_name, :last_name, :email
+  validates_with Crm::Helpers::Validators::CrmTypeValidator
+
+  def initialize(attributes = {})
+    @crm_attributes = attributes.dup
+  end
+end
+
+customer = Customer.find('fc851ba935f8420824498aee739ac897')
+# => #<Customer>
+```
+
+## Persistence
+
+```ruby
+class Customer
+  include ActiveModel::Validations
+  include Crm::Helpers::Attributes
+  include Crm::Helpers::Persistence
+
+  represents_crm_type :contact
+
+  crm_attr_accessor :first_name, :last_name, :email
+  validates_with Crm::Helpers::Validators::CrmTypeValidator
+
+  def initialize(attributes = {})
+    @crm_attributes = attributes.dup
+  end
+end
+
+customer = Customer.create(language: 'en', last_name: 'Dinh')
+# => #<Customer>
+
+customer.language = 'de'
+# => 'de'
+
+customer.save
+# => true
+
+customer.update(language: 'en')
+# => true
+
+customer.destroy
+# => #<Customer>
+```
