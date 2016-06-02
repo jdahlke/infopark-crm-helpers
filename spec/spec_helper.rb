@@ -19,8 +19,8 @@ RSpec.configure do |config|
   end
 
   config.before :each do
-    stub_crm_request(:get, 'types/account')
-    stub_crm_request(:get, 'types/contact')
+    resources = %w( types types/account types/contact)
+    resources.each { |resource| stub_crm_request(:get, resource) }
     stub_crm_request(:get, 'types/does_not_exist', status: ['404', 'Not Found'])
   end
 end
