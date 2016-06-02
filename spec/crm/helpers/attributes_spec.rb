@@ -64,6 +64,24 @@ describe Crm::Helpers::Attributes do
     end
   end
 
+  describe '.crm_class' do
+    context 'without a CRM type set' do
+      it 'returns nil' do
+        expect(subject.crm_class).to be_nil
+      end
+    end
+
+    context 'with a CRM type set' do
+      it 'returns the right class' do
+        Crm::Type.all.each do |crm_type|
+          subject.represents_crm_type(crm_type.id)
+          crm_class = "Crm::#{crm_type.item_base_type}".constantize
+          expect(subject.crm_class).to eq(crm_class)
+        end
+      end
+    end
+  end
+
   describe '.crm_attributes' do
     it 'should return a hash' do
       crm_type = :contact
