@@ -120,21 +120,24 @@ describe Crm::Helpers::Persistence do
     end
   end
 
-  describe '#update' do
-    it 'merges the passed attributes and the existing attributes' do
+  describe 'with any kind of data' do
+    before :each do
       allow(instance).to receive(:invalid?)
       allow(instance).to receive(:persist)
-      expect(instance).to receive(:assign_attributes).with(new_attributes)
-      instance.update(new_attributes)
     end
-  end
 
-  describe '#update!' do
-    it 'merges the passed attributes and the existing attributes' do
-      allow(instance).to receive(:invalid?)
-      allow(instance).to receive(:persist)
-      expect(instance).to receive(:assign_attributes).with(new_attributes)
-      instance.update(new_attributes)
+    describe '#update' do
+      it 'merges the passed attributes and the existing attributes' do
+        expect(instance).to receive(:assign_attributes).with(new_attributes)
+        instance.update(new_attributes)
+      end
+    end
+
+    describe '#update!' do
+      it 'merges the passed attributes and the existing attributes' do
+        expect(instance).to receive(:assign_attributes).with(new_attributes)
+        instance.update!(new_attributes)
+      end
     end
   end
 
@@ -192,25 +195,16 @@ describe Crm::Helpers::Persistence do
       allow(crm_object).to receive(:update).with(crm_attributes).and_return(crm_object)
     end
 
-    describe '#update' do
-      it 'returns true' do
-        expect(instance.update).to eq(true)
-      end
+    %i(update update!).each do |method|
+      describe "##{method}" do
+        it 'returns true' do
+          expect(instance.send(method)).to eq(true)
+        end
 
-      it 'calls #persist' do
-        expect(instance).to receive(:persist)
-        instance.update
-      end
-    end
-
-    describe '#update!' do
-      it 'returns true' do
-        expect(instance.update!).to eq(true)
-      end
-
-      it 'calls #persist' do
-        expect(instance).to receive(:persist)
-        instance.update!
+        it 'calls #persist' do
+          expect(instance).to receive(:persist)
+          instance.send(method)
+        end
       end
     end
 
@@ -229,19 +223,19 @@ describe Crm::Helpers::Persistence do
           allow(instance).to receive(:id).and_return(nil)
         end
 
-        it 'creates a new object' do
+        it 'creates a new CRM object' do
           expect(crm_type_class).to receive(:create).with(crm_attributes).and_return(crm_object)
           instance.persist
         end
       end
 
       context 'with an existing object' do
-        it 'updates the object' do
+        it 'updates the CRM object' do
           expect(crm_object).to receive(:update).with(crm_attributes)
           instance.persist
         end
 
-        it 'does not create a new object' do
+        it 'does not create a new CRM object' do
           expect(crm_type_class).to_not receive(:create)
           instance.persist
         end
