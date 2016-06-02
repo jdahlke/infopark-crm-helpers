@@ -113,6 +113,11 @@ describe Crm::Helpers::Persistence do
       expect(crm_object).to receive(:destroy)
       instance.destroy
     end
+
+    it 'returns the instance' do
+      allow(crm_object).to receive(:destroy)
+      expect(instance.destroy).to eq(instance)
+    end
   end
 
   describe '#update' do

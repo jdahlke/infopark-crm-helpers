@@ -39,6 +39,7 @@ module Crm
 
       def destroy
         crm_object.destroy
+        self
       end
 
       def persist
