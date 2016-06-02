@@ -251,4 +251,26 @@ describe Crm::Helpers::Attributes do
       subject.crm_attr_accessor(*crm_methods)
     end
   end
+
+  describe '#assign_attributes' do
+    subject do
+      class_with_attributes = Class.new do
+        include Crm::Helpers::Attributes
+
+        represents_crm_type :contact
+        crm_attr_accessor :language, :first_name, :last_name
+      end
+      class_with_attributes.new
+    end
+
+    it 'merges existing attributes with new attributes' do
+      subject.language = 'en'
+      subject.first_name = 'Amanda'
+      subject.last_name = 'Tory'
+      subject.assign_attributes(first_name: 'John', last_name: 'Smith')
+      expect(subject.language).to eq('en')
+      expect(subject.first_name).to eq('John')
+      expect(subject.last_name).to eq('Smith')
+    end
+  end
 end

@@ -95,6 +95,10 @@ module Crm
         end
       end
 
+      def assign_attributes(new_attributes)
+        @crm_attributes = crm_attributes.merge(new_attributes)
+      end
+
       def crm_attributes
         @crm_attributes ||= {}
       end
