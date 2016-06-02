@@ -16,6 +16,8 @@ require 'crm/helpers/validators/crm_text_validator'
 require 'crm/helpers/validators/crm_type_validator'
 
 require 'crm/helpers/attributes'
+require 'crm/helpers/finders'
+require 'crm/helpers/persistence'
 require 'crm/helpers/version'
 
 require 'crm/helper'

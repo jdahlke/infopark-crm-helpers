@@ -8,11 +8,8 @@
   "updated_by": "webservice",
   "version": 6,
   "id": "account",
-  "attribute_definitions": {
-  },
-  "attribute_order": [
-    "custom_testing"
-  ],
+  "attribute_definitions": {},
+  "attribute_order": [],
   "standard_attribute_definitions": {
     "account_group": {
       "attribute_type": "string",

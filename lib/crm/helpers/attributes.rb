@@ -8,10 +8,21 @@ module Crm
       module ClassMethods
         attr_reader :crm_type
 
-        def represents_crm_type(type)
-          @crm_type = type
+        def represents_crm_type(crm_type)
+          @crm_type = crm_type
+          @crm_class = nil
           @crm_attributes = {}.with_indifferent_access
+
           crm_attr_accessor(*mandatory_crm_attributes)
+        end
+
+        def crm_class
+          return nil if @crm_type.blank?
+          return @crm_class if @crm_class.present?
+
+          type_definition = crm_type_definition(crm_type)
+          class_name = "Crm::#{type_definition.item_base_type}"
+          @crm_class = class_name.constantize
         end
 
         def mandatory_crm_attributes
@@ -70,7 +81,7 @@ module Crm
         protected
 
         def collect_crm_attributes_data(crm_type)
-          type = Crm::Type.find(crm_type)
+          type = crm_type_definition(crm_type)
           @crm_attributes = type.standard_attribute_definitions
           # This is a lovely hack, because the language attribute does not get
           # the correct valid values in #standard_attribute_definitions. Maybe
@@ -78,6 +89,14 @@ module Crm
           @crm_attributes[:language][:valid_values] += type.languages if @crm_attributes[:language].present?
           @crm_attributes.merge!(type.attribute_definitions)
         end
+
+        def crm_type_definition(crm_type)
+          Crm::Type.find(crm_type)
+        end
+      end
+
+      def assign_attributes(new_attributes)
+        @crm_attributes = crm_attributes.merge(new_attributes)
       end
 
       def crm_attributes

@@ -64,6 +64,24 @@ describe Crm::Helpers::Attributes do
     end
   end
 
+  describe '.crm_class' do
+    context 'without a CRM type set' do
+      it 'returns nil' do
+        expect(subject.crm_class).to be_nil
+      end
+    end
+
+    context 'with a CRM type set' do
+      it 'returns the right class' do
+        Crm::Type.all.each do |crm_type|
+          subject.represents_crm_type(crm_type.id)
+          crm_class = "Crm::#{crm_type.item_base_type}".constantize
+          expect(subject.crm_class).to eq(crm_class)
+        end
+      end
+    end
+  end
+
   describe '.crm_attributes' do
     it 'should return a hash' do
       crm_type = :contact
@@ -231,6 +249,28 @@ describe Crm::Helpers::Attributes do
       expect(subject).to receive(:crm_attr_reader).with(*crm_methods)
       expect(subject).to receive(:crm_attr_writer).with(*crm_methods)
       subject.crm_attr_accessor(*crm_methods)
+    end
+  end
+
+  describe '#assign_attributes' do
+    subject do
+      class_with_attributes = Class.new do
+        include Crm::Helpers::Attributes
+
+        represents_crm_type :contact
+        crm_attr_accessor :language, :first_name, :last_name
+      end
+      class_with_attributes.new
+    end
+
+    it 'merges existing attributes with new attributes' do
+      subject.language = 'en'
+      subject.first_name = 'Amanda'
+      subject.last_name = 'Tory'
+      subject.assign_attributes(first_name: 'John', last_name: 'Smith')
+      expect(subject.language).to eq('en')
+      expect(subject.first_name).to eq('John')
+      expect(subject.last_name).to eq('Smith')
     end
   end
 end
