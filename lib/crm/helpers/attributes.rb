@@ -30,7 +30,7 @@ module Crm
 
           attributes.each do |attribute|
             @crm_attr_readers << attribute unless attribute.in?(@crm_attr_readers)
-            next if methods.include?(attribute.to_sym)
+            next if instance_methods.include?(attribute.to_sym)
             raise "Attribute '#{attribute}' does not exist for a CRM #{crm_type}." if crm_attributes[attribute].blank?
 
             define_method attribute do
@@ -49,7 +49,7 @@ module Crm
           attributes.each do |attribute|
             method_name = "#{attribute}=".to_sym
             @crm_attr_writers << method_name unless method_name.in?(@crm_attr_writers)
-            next if methods.include?(method_name)
+            next if instance_methods.include?(method_name)
             raise "Attribute '#{attribute}' does not exist for a CRM #{crm_type}." if crm_attributes[attribute].blank?
 
             define_method method_name do |value|

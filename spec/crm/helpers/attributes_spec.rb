@@ -14,7 +14,7 @@ describe Crm::Helpers::Attributes do
     %i(amanda_tory mandatory)
   end
 
-  let(:user_data) do
+  let(:data) do
     {
       language: 'en',
       first_name: 'Amanda',
@@ -86,10 +86,19 @@ describe Crm::Helpers::Attributes do
     let(:crm_methods) { %i(first_name last_name) }
 
     context 'with undefined reader methods' do
+      let(:crm_methods) { %i(home_page name) }
+
+      let(:data) do
+        {
+          name: 'Infopark AG',
+          home_page: 'https://infopark.com'
+        }
+      end
+
       before :each do
-        subject.represents_crm_type(:contact)
+        subject.represents_crm_type(:account)
         subject.crm_attr_reader(*crm_methods)
-        allow(subject).to receive(:crm_attributes).and_return(user_data)
+        allow(subject).to receive(:crm_attributes).and_return(data)
       end
 
       it 'should define reader methods' do
@@ -101,13 +110,13 @@ describe Crm::Helpers::Attributes do
       end
 
       it 'should add the reader methods to .crm_attr_readers' do
-        expect(subject.crm_attr_readers).to eq(%i(first_name language last_name))
+        expect(subject.crm_attr_readers).to eq(%i(home_page name))
       end
 
       it 'should read from the crm_attributes hash' do
         instance = subject.new
 
-        user_data.keys.each do |attribute|
+        data.keys.each do |attribute|
           expect(instance.send(attribute)).to eq(instance.crm_attributes[attribute])
         end
       end
@@ -168,7 +177,7 @@ describe Crm::Helpers::Attributes do
       it 'should write into the crm_attributes hash' do
         instance = subject.new
 
-        user_data.each_pair do |attribute, value|
+        data.each_pair do |attribute, value|
           instance.send("#{attribute}=", value)
           expect(instance.crm_attributes[attribute]).to eq(value)
         end
