@@ -31,7 +31,6 @@ describe Crm::Helpers::Persistence do
     end
     allow(instance).to receive(:assign_attributes)
     allow(instance).to receive(:crm_attributes).and_return(crm_attributes)
-    allow(instance).to receive(:crm_object).and_return(crm_object)
     instance
   end
 
@@ -48,6 +47,7 @@ describe Crm::Helpers::Persistence do
   end
 
   before :each do
+    allow(crm_type_class).to receive(:create).and_return(crm_object)
     allow(crm_type_class).to receive(:find).and_return(crm_object)
   end
 
@@ -189,8 +189,7 @@ describe Crm::Helpers::Persistence do
   context 'with valid data' do
     before :each do
       allow(instance).to receive(:invalid?).and_return(false)
-      allow(crm_type_class).to receive(:create).with(crm_attributes)
-      allow(crm_object).to receive(:update).with(crm_attributes)
+      allow(crm_object).to receive(:update).with(crm_attributes).and_return(crm_object)
     end
 
     describe '#update' do
@@ -231,7 +230,7 @@ describe Crm::Helpers::Persistence do
         end
 
         it 'creates a new object' do
-          expect(crm_type_class).to receive(:create).with(crm_attributes)
+          expect(crm_type_class).to receive(:create).with(crm_attributes).and_return(crm_object)
           instance.persist
         end
       end

@@ -45,7 +45,7 @@ module Crm
       def persist
         return false if invalid?
 
-        @crm_object = if id.blank?
+        @crm_object = if crm_object.nil?
                         self.class.crm_class.create(crm_attributes)
                       else
                         crm_object.update(crm_attributes)
@@ -57,8 +57,10 @@ module Crm
       protected
 
       def crm_object
+        return @crm_object if defined?(@crm_object)
         return nil if id.blank?
-        @crm_object ||= self.class.crm_class.find(id)
+
+        @crm_object = self.class.crm_class.find(id)
       end
     end
   end
