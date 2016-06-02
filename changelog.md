@@ -1,3 +1,9 @@
+### 1.1.0
+
+- Add `assign_attributes` to `Crm::Helpers::Attributes`.
+- Add `Crm::Helpers::Finders`, which provides `.find` and `find_by_query`.
+- Add `Crm::Helpers::Persistence`, which provides `.create`, `#save`, `#save!`, `#update`, `#update!`, and `#destroy`.
+
 ### 1.0.2
 
 - Fix an issue wherein some `crm_attr_reader` were not created correctly.
