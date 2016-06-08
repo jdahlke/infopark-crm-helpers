@@ -1,3 +1,7 @@
+### 1.1.1
+
+- Rename `assign_attributes` to `assign_crm_attributes`, deprecating `assign_attributes` in the near future.
+
 ### 1.1.0
 
 - Add `assign_attributes` to `Crm::Helpers::Attributes`.

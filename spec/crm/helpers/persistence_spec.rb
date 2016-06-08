@@ -29,7 +29,7 @@ describe Crm::Helpers::Persistence do
     crm_attributes.each_pair do |attribute, value|
       allow(instance).to receive(attribute).and_return(value)
     end
-    allow(instance).to receive(:assign_attributes)
+    allow(instance).to receive(:assign_crm_attributes)
     allow(instance).to receive(:crm_attributes).and_return(crm_attributes)
     instance
   end
@@ -128,14 +128,14 @@ describe Crm::Helpers::Persistence do
 
     describe '#update' do
       it 'merges the passed attributes and the existing attributes' do
-        expect(instance).to receive(:assign_attributes).with(new_attributes)
+        expect(instance).to receive(:assign_crm_attributes).with(new_attributes)
         instance.update(new_attributes)
       end
     end
 
     describe '#update!' do
       it 'merges the passed attributes and the existing attributes' do
-        expect(instance).to receive(:assign_attributes).with(new_attributes)
+        expect(instance).to receive(:assign_crm_attributes).with(new_attributes)
         instance.update!(new_attributes)
       end
     end
@@ -183,7 +183,7 @@ describe Crm::Helpers::Persistence do
       end
 
       it 'does not touch our CRM attributes' do
-        expect(instance).to_not receive(:assign_attributes)
+        expect(instance).to_not receive(:assign_crm_attributes)
         instance.persist
       end
     end
@@ -214,7 +214,7 @@ describe Crm::Helpers::Persistence do
       end
 
       it 'modifies our CRM attributes' do
-        expect(instance).to receive(:assign_attributes)
+        expect(instance).to receive(:assign_crm_attributes)
         instance.persist
       end
 
