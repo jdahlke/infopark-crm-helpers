@@ -7,7 +7,10 @@ describe Crm::Helper do
     end
   end
 
-  it 'have Crm::Helpers::Attributes as an ancestor' do
-    expect(subject.ancestors).to include(Crm::Helpers::Attributes)
+  %i(Attributes Finders Persistence).each do |module_name|
+    it "has Crm::Helpers::#{module_name} as an ancestor" do
+      full_name = "Crm::Helpers::#{module_name}"
+      expect(subject.ancestors).to include(full_name.constantize)
+    end
   end
 end
