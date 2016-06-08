@@ -24,14 +24,14 @@ module Crm
       end
 
       def update(attributes = {})
-        assign_attributes(attributes)
+        assign_crm_attributes(attributes)
         return false if invalid?
 
         persist
       end
 
       def update!(attributes = {})
-        assign_attributes(attributes)
+        assign_crm_attributes(attributes)
         raise "#{self.class.name} object is invalid." if invalid?
 
         persist
@@ -50,7 +50,7 @@ module Crm
                       else
                         crm_object.update(crm_attributes)
                       end
-        assign_attributes(crm_object.attributes)
+        assign_crm_attributes(crm_object.attributes)
         true
       end
 

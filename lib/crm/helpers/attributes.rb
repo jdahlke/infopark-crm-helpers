@@ -95,8 +95,17 @@ module Crm
         end
       end
 
-      def assign_attributes(new_attributes)
+      def assign_crm_attributes(new_attributes)
         @crm_attributes = crm_attributes.merge(new_attributes)
+      end
+
+      def assign_attributes(new_attributes)
+        deprecation_message = '[DEPRECATION] '
+        deprecation_message << '`Crm::Helpers::Attributes#assign_attributes` is deprecated. '
+        deprecation_message << 'Please use `Crm::Helpers::Attributes#last_description` instead. '
+        deprecation_message << '`Crm::Helpers::Attributes#assign_attributes` will be removed in version 2.0.0.'
+        STDERR.puts(deprecation_message)
+        assign_crm_attributes(new_attributes)
       end
 
       def crm_attributes
