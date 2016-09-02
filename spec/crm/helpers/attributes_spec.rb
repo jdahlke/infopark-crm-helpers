@@ -97,6 +97,13 @@ describe Crm::Helpers::Attributes do
         subject.represents_crm_type(:contact)
         expect(subject.crm_attributes).to_not eq(first_crm_attributes)
       end
+
+      context 'with a language attribute in the type definition' do
+        it 'should contain valid languages' do
+          subject.represents_crm_type(:contact)
+          expect(subject.crm_attributes[:language][:valid_values]).to be_present
+        end
+      end
     end
   end
 

@@ -83,10 +83,6 @@ module Crm
         def collect_crm_attributes_data(crm_type)
           type = crm_type_definition(crm_type)
           @crm_attributes = type.standard_attribute_definitions
-          # This is a lovely hack, because the language attribute does not get
-          # the correct valid values in #standard_attribute_definitions. Maybe
-          # soon, when Thomas Ritz is back from warkation...
-          @crm_attributes[:language][:valid_values] += type.languages if @crm_attributes[:language].present?
           @crm_attributes.merge!(type.attribute_definitions)
         end
 
