@@ -1,3 +1,7 @@
+### 1.1.2
+
+- Use `valid_values` of a `language` attribute provided by `Crm::Type#standard_attribute_definitions`, now that the `valid_values` array contains the correct values.
+
 ### 1.1.1
 
 - Include `Crm::Helpers::Finders` and `Crm::Helpers::Persistence` automagically when including `Crm::Helper`.
