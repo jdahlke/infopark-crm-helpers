@@ -83,10 +83,6 @@ module Crm
         def collect_crm_attributes_data(crm_type)
           type = crm_type_definition(crm_type)
           @crm_attributes = type.standard_attribute_definitions
-          # This is a lovely hack, because the language attribute does not get
-          # the correct valid values in #standard_attribute_definitions. Maybe
-          # soon, when Thomas Ritz is back from warkation...
-          @crm_attributes[:language][:valid_values] += type.languages if @crm_attributes[:language].present?
           @crm_attributes.merge!(type.attribute_definitions)
         end
 
@@ -102,7 +98,7 @@ module Crm
       def assign_attributes(new_attributes)
         deprecation_message = '[DEPRECATION] '
         deprecation_message << '`Crm::Helpers::Attributes#assign_attributes` is deprecated. '
-        deprecation_message << 'Please use `Crm::Helpers::Attributes#last_description` instead. '
+        deprecation_message << 'Please use `Crm::Helpers::Attributes#assign_crm_attributes` instead. '
         deprecation_message << '`Crm::Helpers::Attributes#assign_attributes` will be removed in version 2.0.0.'
         STDERR.puts(deprecation_message)
         assign_crm_attributes(new_attributes)

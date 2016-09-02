@@ -127,7 +127,10 @@
       "read": true,
       "title": "Language",
       "update": true,
-      "valid_values": []
+      "valid_values": [
+        "de",
+        "en"
+      ]
     },
     "last_name": {
       "attribute_type": "string",
