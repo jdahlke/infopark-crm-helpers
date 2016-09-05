@@ -5,19 +5,18 @@ module Crm
         base.extend self
       end
 
-      def find(id_or_ids)
-        case id_or_ids
-        when String
-          crm_object = crm_class.find(id_or_ids)
-          return nil if crm_object.blank?
+      def find(*args)
+        wants_array = args.first.is_a?(Array)
+        ids = args.flatten
 
-          new(crm_object.attributes)
-        when Array
-          crm_objects = Crm.find(id_or_ids).to_a
-          rejected_crm_objects = crm_objects.reject { |crm_object| crm_object.is_a?(crm_class) }
-          raise Errors::ResourceNotFound.new("Not of type #{crm_class.name}", rejected_crm_objects.map(&:id)) if rejected_crm_objects.present?
-
-          crm_objects.map { |crm_object| new(crm_object.attributes) }
+        case ids.size
+        when 0
+          raise ArgumentError.new('Requires one or more IDs as argument.')
+        when 1
+          crm_object = find_one(ids.first)
+          wants_array ? [crm_object].compact : crm_object
+        else
+          find_many(ids)
         end
       end
 
@@ -28,6 +27,24 @@ module Crm
         crm_class.query(query).limit(limit).sort_order(sort_order).to_a.map do |crm_object|
           new(crm_object.attributes)
         end
+      end
+
+      protected
+      def find_one(id)
+        crm_object = crm_class.find(id)
+        return nil  if crm_object.blank?
+
+        new(crm_object.attributes)
+      end
+
+      def find_many(ids)
+        crm_objects = Crm.find(ids).select do |crm_object|
+          crm_object.is_a?(crm_class)
+        end
+        unknown_ids = ids - crm_objects.map(&:id)
+        raise Errors::ResourceNotFound('Items could not be found.', unknown_ids)  if unknown_ids.present?
+
+        crm_objects.map { |crm_object| new(crm_object.attributes) }
       end
     end
   end
