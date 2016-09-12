@@ -1,3 +1,8 @@
+### 1.2.0
+
+- `.find` (from `Crm::Helpers::Finders`) is capable of fetching multiple CRM objects for multiple CRM ids.
+- Added support for Rails 5.0.x.
+
 ### 1.1.2
 
 - Use `valid_values` of a `language` attribute provided by `Crm::Type#standard_attribute_definitions`, now that the `valid_values` array contains the correct values.
