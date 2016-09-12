@@ -11,9 +11,18 @@ describe Crm::Helpers::Finders do
     }
   end
   let(:crm_object) do
-    object = Object.new
+    object = crm_class.new
     allow(object).to receive(:attributes).and_return(crm_object_attributes)
     object
+  end
+  let(:crm_ids) { %w(2 3 4 5) }
+  let(:crm_objects) do
+    crm_ids.map do |id|
+      o = crm_class.new
+      allow(o).to receive(:id).and_return(id)
+      allow(o).to receive(:attributes).and_return(crm_object_attributes.merge(id: id))
+      o
+    end
   end
 
   subject do
@@ -66,6 +75,17 @@ describe Crm::Helpers::Finders do
       it 'creates a new instance with the CRM object attributes' do
         expect(subject).to receive(:new).with(crm_object.attributes)
         subject.find(crm_id)
+      end
+    end
+
+    context 'with multiple ids for existing objects' do
+      before :each do
+        allow(Crm).to receive(:find).and_return(crm_objects)
+      end
+
+      it 'creates new instances with the CRM object attributes' do
+        expect(subject).to receive(:new).exactly(crm_ids.size).times
+        subject.find(crm_ids)
       end
     end
   end
