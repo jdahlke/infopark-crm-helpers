@@ -1,3 +1,7 @@
+### 1.2.1
+
+- Fix issue, wherein Rails < 5.0 was not accepted anymore.
+
 ### 1.2.0
 
 - `.find` (from `Crm::Helpers::Finders`) is capable of fetching multiple CRM objects for multiple CRM ids.
