@@ -30,6 +30,7 @@ module Crm
       end
 
       protected
+
       def find_one(id)
         crm_object = crm_class.find(id)
         return nil  if crm_object.blank?
@@ -42,7 +43,7 @@ module Crm
           crm_object.is_a?(crm_class)
         end
         unknown_ids = ids - crm_objects.map(&:id)
-        raise Errors::ResourceNotFound('Items could not be found.', unknown_ids)  if unknown_ids.present?
+        raise Errors::ResourceNotFound.new('Items could not be found.', unknown_ids)  if unknown_ids.present?
 
         crm_objects.map { |crm_object| new(crm_object.attributes) }
       end
