@@ -67,6 +67,12 @@ describe Crm::Helpers::Finders do
       end
     end
 
+    context 'with no arguments' do
+      it 'raises an exception' do
+        expect { subject.find }.to raise_error(ArgumentError)
+      end
+    end
+
     context 'with an id for an existing object' do
       before :each do
         allow(crm_class).to receive(:find).and_return(crm_object)
@@ -78,14 +84,36 @@ describe Crm::Helpers::Finders do
       end
     end
 
-    context 'with multiple ids for existing objects' do
-      before :each do
-        allow(Crm).to receive(:find).and_return(crm_objects)
+    context 'with multiple ids' do
+      context 'for existing objects of the right class' do
+        before :each do
+          allow(Crm).to receive(:find).and_return(crm_objects)
+        end
+
+        it 'creates new instances with the CRM object attributes' do
+          expect(subject).to receive(:new).exactly(crm_ids.size).times
+          subject.find(crm_ids)
+        end
       end
 
-      it 'creates new instances with the CRM object attributes' do
-        expect(subject).to receive(:new).exactly(crm_ids.size).times
-        subject.find(crm_ids)
+      context 'for objects of the wrong class' do
+        let(:crm_ids_for_wrong_objects) { %w(0) }
+
+        let(:wrong_objects) do
+          crm_ids_for_wrong_objects.map do |crm_id|
+            wrong_object = Object.new
+            allow(wrong_object).to receive(:id).and_return(crm_id)
+            wrong_object
+          end
+        end
+
+        before :each do
+          allow(Crm).to receive(:find).and_return(crm_objects + wrong_objects)
+        end
+
+        it 'raises an exception' do
+          expect { subject.find(crm_ids + crm_ids_for_wrong_objects) }.to raise_error(Crm::Errors::ResourceNotFound)
+        end
       end
     end
   end
