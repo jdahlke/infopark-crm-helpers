@@ -7,6 +7,7 @@ module Crm
 
       module ClassMethods
         def create(attributes = {})
+          attributes = attributes.with_indifferent_access
           instance = new(attributes)
           return instance if instance.invalid?
 

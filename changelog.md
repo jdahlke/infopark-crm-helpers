@@ -1,3 +1,7 @@
+### 1.2.2
+
+- Allow indifferent access on the hash passed in whilst creating an object.
+
 ### 1.2.1
 
 - Fix issue, wherein Rails < 5.0 was not accepted anymore.
