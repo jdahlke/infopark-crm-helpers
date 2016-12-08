@@ -8,6 +8,7 @@ before_install: gem install bundler -v 1.11.2
 install: bundle install --without doc --retry=3
 script:
   - bundle exec rake spec
+  - bundle exec codeclimate-test-reporter
 
 env:
   global:
