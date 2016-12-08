@@ -71,6 +71,11 @@ describe Crm::Helpers::Persistence do
       subject.create(crm_attributes)
     end
 
+    it 'passes a hash with indifferent access to the new instance' do
+      expect(subject).to receive(:new).with(kind_of(ActiveSupport::HashWithIndifferentAccess))
+      subject.create(crm_attributes)
+    end
+
     context 'with valid attributes' do
       before :each do
         allow(instance).to receive(:invalid?).and_return(false)
