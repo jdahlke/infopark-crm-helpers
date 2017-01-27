@@ -48,6 +48,7 @@ describe Crm::Helpers::Persistence do
 
   before :each do
     allow(crm_type_class).to receive(:create).and_return(crm_object)
+    allow(crm_type_class).to receive(:create!).and_return(crm_object)
     allow(crm_type_class).to receive(:find).and_return(crm_object)
   end
 
@@ -66,14 +67,16 @@ describe Crm::Helpers::Persistence do
       allow(subject).to receive(:new).and_return(instance)
     end
 
-    it 'creates a new instance with attributes' do
-      expect(subject).to receive(:new).with(crm_attributes)
-      subject.create(crm_attributes)
-    end
+    %i(create create!).each do |method|
+      it 'creates a new instance with attributes' do
+        expect(subject).to receive(:new).with(crm_attributes)
+        subject.send(method, crm_attributes)
+      end
 
-    it 'passes a hash with indifferent access to the new instance' do
-      expect(subject).to receive(:new).with(kind_of(ActiveSupport::HashWithIndifferentAccess))
-      subject.create(crm_attributes)
+      it 'passes a hash with indifferent access to the new instance' do
+        expect(subject).to receive(:new).with(kind_of(ActiveSupport::HashWithIndifferentAccess))
+        subject.send(method, crm_attributes)
+      end
     end
 
     context 'with valid attributes' do
@@ -81,20 +84,38 @@ describe Crm::Helpers::Persistence do
         allow(instance).to receive(:invalid?).and_return(false)
       end
 
-      it 'persists the instance' do
-        expect(instance).to receive(:save!)
-        subject.create(crm_attributes)
+      %i(create create!).each do |method|
+        describe "##{method}" do
+          it 'persists the instance' do
+            expect(instance).to receive(:save!)
+            subject.send(method, crm_attributes)
+          end
+        end
       end
     end
 
     context 'with invalid attributes' do
       before :each do
         allow(instance).to receive(:invalid?).and_return(true)
+        allow(instance).to receive(:errors).and_return({})
       end
 
-      it 'does not persist the instance' do
-        expect(instance).to_not receive(:save!)
-        subject.create(crm_attributes)
+      describe '#create!' do
+        it 'returns false' do
+          expect { subject.create!(crm_attributes) }.to raise_error(Crm::Errors::InvalidValues)
+        end
+
+        it 'does not call #persist' do
+          expect(instance).to_not receive(:persist)
+          expect { subject.create!(crm_attributes) }.to raise_error(Crm::Errors::InvalidValues)
+        end
+      end
+
+      describe "#create" do
+        it 'does not persist the instance' do
+          expect(instance).to_not receive(:save!)
+          subject.create(crm_attributes)
+        end
       end
     end
   end
@@ -150,6 +171,7 @@ describe Crm::Helpers::Persistence do
     before :each do
       allow(instance).to receive(:invalid?).and_return(true)
       allow(instance).to receive(:persist).and_return(false)
+      allow(instance).to receive(:errors).and_return({})
     end
 
     describe '#update' do
@@ -164,15 +186,14 @@ describe Crm::Helpers::Persistence do
     end
 
     describe '#update!' do
-      let(:error_message) { "#{instance.class.name} object is invalid." }
 
       it 'returns false' do
-        expect { instance.update! }.to raise_error(error_message)
+        expect { instance.update! }.to raise_error(Crm::Errors::InvalidValues)
       end
 
       it 'does not call #persist' do
         expect(instance).to_not receive(:persist)
-        expect { instance.update! }.to raise_error(error_message)
+        expect { instance.update! }.to raise_error(Crm::Errors::InvalidValues)
       end
     end
 

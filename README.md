@@ -30,6 +30,22 @@ bundle install
 
 No direct configuration of `infopark-crm-helpers` is required. Refer to [infopark/webcrm_sdk](https://github.com/infopark/webcrm_sdk#configuration) for instructions on setting up your installation of `infopark_webcrm_sdk`.
 
+### Run specs
+
+Add your CRM credentials to `.crm.yml` in the root folder of this project.
+
+```yaml
+tenant: your-tenant-here
+login: john.smith@example.org
+api_key: 1234567890abcdefghijklmnopqrstuvwxyz
+```
+
+Then invoke:
+
+```
+bundle exec rake spec
+```
+
 ## Examples
 
 ### Create your own class
