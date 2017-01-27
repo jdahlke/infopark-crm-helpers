@@ -9,18 +9,13 @@ module Crm
         def create(attributes = {})
           attributes = attributes.with_indifferent_access
           instance = new(attributes)
-          return instance if instance.invalid?
-
-          instance.save!
+          instance.save! unless instance.invalid?
           instance
         end
 
         def create!(attributes = {})
-          attributes = attributes.with_indifferent_access
-          instance = new(attributes)
+          instance = create(attributes)
           raise Crm::Errors::InvalidValues.new('', instance.errors) if instance.invalid?
-
-          instance.save!
           instance
         end
       end
