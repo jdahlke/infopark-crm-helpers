@@ -26,7 +26,7 @@ module CrmHelper
 
   def crm_configuration
     @crm_configuration ||= begin
-      crm_config_path = File.expand_path('../../../.crm.yml', __FILE__)
+      crm_config_path = File.expand_path('../../config/crm.yml', __FILE__)
       YAML.load_file(crm_config_path).with_indifferent_access
     rescue
       {}
