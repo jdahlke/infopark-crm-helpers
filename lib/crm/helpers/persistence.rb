@@ -14,6 +14,15 @@ module Crm
           instance.save!
           instance
         end
+
+        def create!(attributes = {})
+          attributes = attributes.with_indifferent_access
+          instance = new(attributes)
+          raise Crm::Errors::InvalidValues.new('', instance.errors) if instance.invalid?
+
+          instance.save!
+          instance
+        end
       end
 
       def save
@@ -33,7 +42,7 @@ module Crm
 
       def update!(attributes = {})
         assign_crm_attributes(attributes)
-        raise "#{self.class.name} object is invalid." if invalid?
+        raise Crm::Errors::InvalidValues.new('', self.errors) if invalid?
 
         persist
       end
