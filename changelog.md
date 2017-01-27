@@ -1,3 +1,8 @@
+### 1.3.0
+
+- Add `Crm::Helpers::Persistence.create!`.
+- An instance of `Crm::Errors::InvalidValues` is raised for `!`-methods, if an invalid object is to be persisted.  
+
 ### 1.2.2
 
 - Allow indifferent access on the hash passed in whilst creating an object.
