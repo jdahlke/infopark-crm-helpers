@@ -37,7 +37,7 @@ module Crm
 
       def update!(attributes = {})
         assign_crm_attributes(attributes)
-        raise Crm::Errors::InvalidValues.new('', self.errors) if invalid?
+        raise Crm::Errors::InvalidValues.new('', errors) if invalid?
 
         persist
       end

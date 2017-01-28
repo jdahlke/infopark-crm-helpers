@@ -11,7 +11,7 @@ module Crm
 
         case ids.size
         when 0
-          raise ArgumentError.new('Requires one or more IDs as argument.')
+          raise ArgumentError, 'Requires one or more IDs as argument.'
         when 1
           crm_object = find_one(ids.first)
           wants_array ? [crm_object].compact : crm_object
@@ -33,7 +33,7 @@ module Crm
 
       def find_one(id)
         crm_object = crm_class.find(id)
-        return nil  if crm_object.blank?
+        return nil if crm_object.blank?
 
         new(crm_object.attributes)
       end
@@ -43,7 +43,7 @@ module Crm
           crm_object.is_a?(crm_class)
         end
         unknown_ids = ids - crm_objects.map(&:id)
-        raise Errors::ResourceNotFound.new('Items could not be found.', unknown_ids)  if unknown_ids.present?
+        raise Errors::ResourceNotFound.new('Items could not be found.', unknown_ids) if unknown_ids.present?
 
         crm_objects.map { |crm_object| new(crm_object.attributes) }
       end

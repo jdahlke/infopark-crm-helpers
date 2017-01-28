@@ -2,7 +2,6 @@
 # FakeWeb::StubSocket#read_timeout=, which does not exist.
 module FakeWeb
   class StubSocket
-    def read_timeout=(_)
-    end
+    def read_timeout=(_); end
   end
 end

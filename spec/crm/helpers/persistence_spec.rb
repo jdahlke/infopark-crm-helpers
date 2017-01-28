@@ -111,7 +111,7 @@ describe Crm::Helpers::Persistence do
         end
       end
 
-      describe "#create" do
+      describe '#create' do
         it 'does not persist the instance' do
           expect(instance).to_not receive(:save!)
           subject.create(crm_attributes)
@@ -186,7 +186,6 @@ describe Crm::Helpers::Persistence do
     end
 
     describe '#update!' do
-
       it 'returns false' do
         expect { instance.update! }.to raise_error(Crm::Errors::InvalidValues)
       end
