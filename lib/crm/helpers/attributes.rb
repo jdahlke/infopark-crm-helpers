@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crm
   module Helpers
     module Attributes
@@ -96,10 +98,12 @@ module Crm
       end
 
       def assign_attributes(new_attributes)
-        deprecation_message = '[DEPRECATION] '
-        deprecation_message << '`Crm::Helpers::Attributes#assign_attributes` is deprecated. '
-        deprecation_message << 'Please use `Crm::Helpers::Attributes#assign_crm_attributes` instead. '
-        deprecation_message << '`Crm::Helpers::Attributes#assign_attributes` will be removed in version 2.0.0.'
+        deprecation_message = [
+          '[DEPRECATION]',
+          '`Crm::Helpers::Attributes#assign_attributes` is deprecated.',
+          'Please use `Crm::Helpers::Attributes#assign_crm_attributes` instead.',
+          '`Crm::Helpers::Attributes#assign_attributes` will be removed in version 2.0.0.'
+        ].join(' ')
         STDERR.puts(deprecation_message)
         assign_crm_attributes(new_attributes)
       end

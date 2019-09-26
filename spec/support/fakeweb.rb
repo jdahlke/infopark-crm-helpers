@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This fixes an issue with someone (tm) trying to call
 # FakeWeb::StubSocket#read_timeout=, which does not exist.
 module FakeWeb
