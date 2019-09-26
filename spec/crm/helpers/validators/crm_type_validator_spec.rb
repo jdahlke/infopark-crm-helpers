@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Crm::Helpers::Validators::CrmTypeValidator, type: :validator do
@@ -37,10 +39,14 @@ describe Crm::Helpers::Validators::CrmTypeValidator, type: :validator do
             'ClassWithValidations'
           end
         end
-        allow(class_with_validations).to receive(:crm_attributes).and_return(crm_attributes)
+        allow(class_with_validations).to(
+          receive(:crm_attributes).and_return(crm_attributes)
+        )
         class_with_validations.represents_crm_type :contact
         class_with_validations.crm_attr_reader attribute_reader
-        class_with_validations.validates_with Crm::Helpers::Validators::CrmTypeValidator
+        class_with_validations.validates_with(
+          Crm::Helpers::Validators::CrmTypeValidator
+        )
         class_with_validations
       end
 
@@ -50,7 +56,9 @@ describe Crm::Helpers::Validators::CrmTypeValidator, type: :validator do
 
       context "with a blank attribute of type #{attribute_type}" do
         it 'should not validate that attribute' do
-          expect(subject).to_not receive(:validates_with).with(crm_validator, anything)
+          expect(subject).to_not(
+            receive(:validates_with).with(crm_validator, anything)
+          )
           subject.valid?
         end
       end
@@ -58,7 +66,9 @@ describe Crm::Helpers::Validators::CrmTypeValidator, type: :validator do
       context "with a present attribute of type #{attribute_type}" do
         it "should validate with #{validator}" do
           allow(subject).to receive(attribute_reader).and_return(value)
-          expect(subject).to receive(:validates_with).with(crm_validator, anything)
+          expect(subject).to(
+            receive(:validates_with).with(crm_validator, anything)
+          )
           subject.valid?
         end
       end

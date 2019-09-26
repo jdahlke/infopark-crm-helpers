@@ -1,19 +1,7 @@
+# frozen_string_literal: true
+
 module CrmAttributeValidatorSpecHelper
   include RSpec::Mocks::ExampleMethods
-
-  def run_specs_for_crm_attribute_validator(validator, options = {})
-    describe validator, type: :validator do
-      subject { setup_subject(validator, options).new }
-
-      context 'with an invalid value' do
-        run_specs_for_invalid_values(options[:invalid_values])
-      end
-
-      context 'with a valid value' do
-        run_specs_for_valid_values(options[:valid_values])
-      end
-    end
-  end
 
   def setup_subject(validator, options = {})
     subject_class = Class.new do
@@ -37,19 +25,21 @@ module CrmAttributeValidatorSpecHelper
     subject
   end
 
-  def run_specs_for_invalid_values(invalid_values)
-    check_for_validity(invalid_values, false)
-    check_for_empty_error_messages(invalid_values, false)
+  RSpec.shared_examples 'crm attribute validator' do |validator, options = {}|
+    subject { setup_subject(validator, options).new }
+
+    context 'with an invalid value' do
+      include_examples 'validity check', options[:invalid_values], false
+      include_examples 'error messages', options[:invalid_values], false
+    end
+
+    context 'with a valid value' do
+      include_examples 'validity check', options[:valid_values], true
+      include_examples 'error messages', options[:valid_values], true
+    end
   end
 
-  def run_specs_for_valid_values(valid_values)
-    check_for_validity(valid_values, true)
-    check_for_empty_error_messages(valid_values, true)
-  end
-
-  protected
-
-  def check_for_validity(values, expectation)
+  RSpec.shared_examples 'validity check' do |values, expectation|
     values.each do |value|
       it "should be #{expectation ? 'valid' : 'invalid'}" do
         subject.attribute = value
@@ -58,7 +48,7 @@ module CrmAttributeValidatorSpecHelper
     end
   end
 
-  def check_for_empty_error_messages(values, expectation)
+  RSpec.shared_examples 'error messages' do |values, expectation|
     values.each do |value|
       it "#{expectation ? 'should not' : 'should'} add error messages" do
         subject.attribute = value

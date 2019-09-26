@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Crm::Helpers::Finders do
@@ -15,12 +17,14 @@ describe Crm::Helpers::Finders do
     allow(object).to receive(:attributes).and_return(crm_object_attributes)
     object
   end
-  let(:crm_ids) { %w(2 3 4 5) }
+  let(:crm_ids) { %w[2 3 4 5] }
   let(:crm_objects) do
     crm_ids.map do |id|
       o = crm_class.new
       allow(o).to receive(:id).and_return(id)
-      allow(o).to receive(:attributes).and_return(crm_object_attributes.merge(id: id))
+      allow(o).to(
+        receive(:attributes).and_return(crm_object_attributes.merge(id: id))
+      )
       o
     end
   end
@@ -97,7 +101,7 @@ describe Crm::Helpers::Finders do
       end
 
       context 'for objects of the wrong class' do
-        let(:crm_ids_for_wrong_objects) { %w(0) }
+        let(:crm_ids_for_wrong_objects) { %w[0] }
 
         let(:wrong_objects) do
           crm_ids_for_wrong_objects.map do |crm_id|
@@ -112,7 +116,9 @@ describe Crm::Helpers::Finders do
         end
 
         it 'raises an exception' do
-          expect { subject.find(crm_ids + crm_ids_for_wrong_objects) }.to raise_error(Crm::Errors::ResourceNotFound)
+          expect { subject.find(crm_ids + crm_ids_for_wrong_objects) }.to(
+            raise_error(Crm::Errors::ResourceNotFound)
+          )
         end
       end
     end
@@ -123,8 +129,12 @@ describe Crm::Helpers::Finders do
     let(:search_configurator) do
       search_configurator = Object.new
       allow(search_configurator).to receive(:to_a).and_return(search_result)
-      allow(search_configurator).to receive(:sort_order).and_return(search_configurator)
-      allow(search_configurator).to receive(:limit).and_return(search_configurator)
+      allow(search_configurator).to(
+        receive(:sort_order).and_return(search_configurator)
+      )
+      allow(search_configurator).to(
+        receive(:limit).and_return(search_configurator)
+      )
       search_configurator
     end
     let(:query) { 'Derp' }
@@ -163,7 +173,9 @@ describe Crm::Helpers::Finders do
       let(:custom_sort_order) { 'asc' }
 
       it 'uses the custom sort order' do
-        expect(search_configurator).to receive(:sort_order).with(custom_sort_order)
+        expect(search_configurator).to(
+          receive(:sort_order).with(custom_sort_order)
+        )
         subject.find_by_query(query, sort_order: custom_sort_order)
       end
     end

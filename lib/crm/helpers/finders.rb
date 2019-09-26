@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crm
   module Helpers
     module Finders
@@ -10,13 +12,11 @@ module Crm
         ids = args.flatten
 
         case ids.size
-        when 0
-          raise ArgumentError, 'Requires one or more IDs as argument.'
+        when 0 then raise ArgumentError, 'Requires one or more IDs as argument.'
         when 1
           crm_object = find_one(ids.first)
           wants_array ? [crm_object].compact : crm_object
-        else
-          find_many(ids)
+        else find_many(ids)
         end
       end
 
@@ -24,7 +24,8 @@ module Crm
         limit = options[:limit] || 50
         sort_order = options[:sort_order] || 'desc'
 
-        crm_class.query(query).limit(limit).sort_order(sort_order).to_a.map do |crm_object|
+        result = crm_class.query(query).limit(limit).sort_order(sort_order).to_a
+        result.map do |crm_object|
           new(crm_object.attributes)
         end
       end
@@ -43,7 +44,11 @@ module Crm
           crm_object.is_a?(crm_class)
         end
         unknown_ids = ids - crm_objects.map(&:id)
-        raise Errors::ResourceNotFound.new('Items could not be found.', unknown_ids) if unknown_ids.present?
+        if unknown_ids.present?
+          raise Errors::ResourceNotFound.new(
+            'Items could not be found.', unknown_ids
+          )
+        end
 
         crm_objects.map { |crm_object| new(crm_object.attributes) }
       end

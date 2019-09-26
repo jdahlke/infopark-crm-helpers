@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crm
   module Helpers
     module Validators
@@ -11,7 +13,10 @@ module Crm
           invalid_values = values.reject { |value| value.in?(valid_values) }
           return if invalid_values.blank?
 
-          message = I18n.t('activerecord.errors.messages.cannot_contain_values', values: invalid_values.join(', '))
+          message = I18n.t(
+            'activerecord.errors.messages.cannot_contain_values',
+            values: invalid_values.join(', ')
+          )
           record.errors.add(attribute, message)
         end
 
@@ -19,7 +24,10 @@ module Crm
 
         def a_multienum?(record, attribute, values)
           unless values.is_a?(Array)
-            record.errors.add(attribute, I18n.t('activerecord.errors.messages.not_a_list'))
+            record.errors.add(
+              attribute,
+              I18n.t('activerecord.errors.messages.not_a_list')
+            )
             return false
           end
 

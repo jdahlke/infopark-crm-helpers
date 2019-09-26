@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crm
   module Helpers
     module Attributes
@@ -26,23 +28,30 @@ module Crm
         end
 
         def mandatory_crm_attributes
-          crm_attributes.select { |_, definition| definition[:mandatory] }.keys.sort.map(&:to_sym)
+          crm_attributes.select do |_, definition|
+            definition[:mandatory]
+          end.keys.sort.map(&:to_sym)
         end
 
         def crm_attributes
           return @crm_attributes if @crm_attributes.present?
-          raise "#{name}.represents_crm_type(type) needs to be called to fetch its CRM attributes." if crm_type.blank?
+
+          if crm_type.blank?
+            raise "#{name}.represents_crm_type(type) needs to be called " \
+                  'to fetch its CRM attributes.'
+          end
 
           collect_crm_attributes_data(crm_type)
         end
 
         def crm_attr_reader(*attributes)
-          @crm_attr_readers ||= []
+          @crm_attr_readers ||= Set.new
 
           attributes.each do |attribute|
-            @crm_attr_readers << attribute unless attribute.in?(@crm_attr_readers)
+            @crm_attr_readers << attribute
             next if instance_methods.include?(attribute.to_sym)
-            raise "Attribute '#{attribute}' does not exist for a CRM #{crm_type}." if crm_attributes[attribute].blank?
+
+            check_attribute(attribute)
 
             define_method attribute do
               crm_attributes[attribute]
@@ -55,13 +64,14 @@ module Crm
         end
 
         def crm_attr_writer(*attributes)
-          @crm_attr_writers ||= []
+          @crm_attr_writers ||= Set.new
 
           attributes.each do |attribute|
             method_name = "#{attribute}=".to_sym
-            @crm_attr_writers << method_name unless method_name.in?(@crm_attr_writers)
+            @crm_attr_writers << method_name
             next if instance_methods.include?(method_name)
-            raise "Attribute '#{attribute}' does not exist for a CRM #{crm_type}." if crm_attributes[attribute].blank?
+
+            check_attribute(attribute)
 
             define_method method_name do |value|
               crm_attributes[attribute] = value
@@ -80,6 +90,12 @@ module Crm
 
         protected
 
+        def check_attribute(attribute)
+          return if crm_attributes[attribute].present?
+
+          raise "Attribute '#{attribute}' does not exist for a CRM #{crm_type}."
+        end
+
         def collect_crm_attributes_data(crm_type)
           type = crm_type_definition(crm_type)
           @crm_attributes = type.standard_attribute_definitions
@@ -96,11 +112,14 @@ module Crm
       end
 
       def assign_attributes(new_attributes)
-        deprecation_message = '[DEPRECATION] '
-        deprecation_message << '`Crm::Helpers::Attributes#assign_attributes` is deprecated. '
-        deprecation_message << 'Please use `Crm::Helpers::Attributes#assign_crm_attributes` instead. '
-        deprecation_message << '`Crm::Helpers::Attributes#assign_attributes` will be removed in version 2.0.0.'
-        STDERR.puts(deprecation_message)
+        deprecation_message = [
+          '[DEPRECATION]',
+          '`Crm::Helpers::Attributes#assign_attributes` is deprecated. Please ',
+          'use `Crm::Helpers::Attributes#assign_crm_attributes` instead.',
+          '`Crm::Helpers::Attributes#assign_attributes` will be removed in',
+          'version 2.0.0.'
+        ].join(' ')
+        warn(deprecation_message)
         assign_crm_attributes(new_attributes)
       end
 

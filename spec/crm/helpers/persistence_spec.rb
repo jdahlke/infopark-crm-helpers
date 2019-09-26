@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Crm::Helpers::Persistence do
@@ -42,7 +44,9 @@ describe Crm::Helpers::Persistence do
         'ClassWithPersistence'
       end
     end
-    allow(class_with_crud_helpers).to receive(:crm_class).and_return(crm_type_class)
+    allow(class_with_crud_helpers).to(
+      receive(:crm_class).and_return(crm_type_class)
+    )
     class_with_crud_helpers
   end
 
@@ -67,14 +71,16 @@ describe Crm::Helpers::Persistence do
       allow(subject).to receive(:new).and_return(instance)
     end
 
-    %i(create create!).each do |method|
+    %i[create create!].each do |method|
       it 'creates a new instance with attributes' do
         expect(subject).to receive(:new).with(crm_attributes)
         subject.send(method, crm_attributes)
       end
 
       it 'passes a hash with indifferent access to the new instance' do
-        expect(subject).to receive(:new).with(kind_of(ActiveSupport::HashWithIndifferentAccess))
+        expect(subject).to(
+          receive(:new).with(kind_of(ActiveSupport::HashWithIndifferentAccess))
+        )
         subject.send(method, crm_attributes)
       end
     end
@@ -84,7 +90,7 @@ describe Crm::Helpers::Persistence do
         allow(instance).to receive(:invalid?).and_return(false)
       end
 
-      %i(create create!).each do |method|
+      %i[create create!].each do |method|
         describe "##{method}" do
           it 'persists the instance' do
             expect(instance).to receive(:save!)
@@ -102,12 +108,16 @@ describe Crm::Helpers::Persistence do
 
       describe '#create!' do
         it 'returns false' do
-          expect { subject.create!(crm_attributes) }.to raise_error(Crm::Errors::InvalidValues)
+          expect { subject.create!(crm_attributes) }.to(
+            raise_error(Crm::Errors::InvalidValues)
+          )
         end
 
         it 'does not call #persist' do
           expect(instance).to_not receive(:persist)
-          expect { subject.create!(crm_attributes) }.to raise_error(Crm::Errors::InvalidValues)
+          expect { subject.create!(crm_attributes) }.to(
+            raise_error(Crm::Errors::InvalidValues)
+          )
         end
       end
 
@@ -217,10 +227,12 @@ describe Crm::Helpers::Persistence do
   context 'with valid data' do
     before :each do
       allow(instance).to receive(:invalid?).and_return(false)
-      allow(crm_object).to receive(:update).with(crm_attributes).and_return(crm_object)
+      allow(crm_object).to(
+        receive(:update).with(crm_attributes).and_return(crm_object)
+      )
     end
 
-    %i(update update!).each do |method|
+    %i[update update!].each do |method|
       describe "##{method}" do
         it 'returns true' do
           expect(instance.send(method)).to eq(true)
@@ -249,7 +261,9 @@ describe Crm::Helpers::Persistence do
         end
 
         it 'creates a new CRM object' do
-          expect(crm_type_class).to receive(:create).with(crm_attributes).and_return(crm_object)
+          expect(crm_type_class).to(
+            receive(:create).with(crm_attributes).and_return(crm_object)
+          )
           instance.persist
         end
       end

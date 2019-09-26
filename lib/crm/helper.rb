@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crm
   module Helper
     def self.included(base)
