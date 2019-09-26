@@ -11,20 +11,23 @@ rails = case rails_version
         end
 
 Gem::Specification.new do |spec|
-  spec.name          = 'infopark-crm-helpers'
-  spec.version       = Crm::Helpers::VERSION
-  spec.authors       = ['Huy Dinh']
-  spec.email         = ['mail@huydinh.eu']
+  spec.name = 'infopark-crm-helpers'
+  spec.version = Crm::Helpers::VERSION
+  spec.authors = ['Huy Dinh']
+  spec.email = ['mail@huydinh.eu']
 
-  spec.summary       = 'Helpers for the Infopark WebCRM SDK for Ruby.'
-  spec.description   = 'infopark-crm-helpers provides helper mixins and validators to use with the Infopark WebCRM.'
-  spec.description  += ' It is based on the Infopark WebCRM SDK for Ruby.'
-  spec.homepage      = 'https://github.com/Skudo/infopark-crm-helpers'
-  spec.license       = 'MIT'
+  spec.summary = 'Helpers for the Infopark WebCRM SDK for Ruby.'
+  spec.description = 'infopark-crm-helpers provides helper mixins and ' \
+                     'validators to use with the Infopark WebCRM.' \
+                     'It is based on the Infopark WebCRM SDK for Ruby.'
+  spec.homepage = 'https://github.com/Skudo/infopark-crm-helpers'
+  spec.license = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = 'exe'
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.files = `git ls-files -z`.split("\x0").reject do |f|
+    f.match(%r{^(test|spec|features)/})
+  end
+  spec.bindir = 'exe'
+  spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
   spec.required_ruby_version = ['>= 2.1', '< 2.4']

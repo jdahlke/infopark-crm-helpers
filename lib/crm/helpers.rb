@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'set'
+
 require 'active_model'
 require 'active_support/all'
 require 'infopark_webcrm_sdk'

@@ -17,6 +17,7 @@ require 'yaml'
 
 RSpec.configure do |config|
   config.include CrmHelper
+  config.include CrmAttributeValidatorSpecHelper
 
   config.before :all do
     setup_crm

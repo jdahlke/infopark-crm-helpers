@@ -14,11 +14,12 @@ module CrmHelper
   def stub_crm_request(method, resource, options = {})
     return if ENV['WEBCRM_INTEGRATION'].present?
 
-    url = %r{\Ahttps://.*:.*@#{crm_configuration[:tenant]}.crm.infopark.net/api2/#{resource}\z}
-    path_to_body_file = File.expand_path("crm/fakeweb/api2/#{resource}.json", __dir__)
-    return unless File.exist?(path_to_body_file)
+    tenant = crm_configuration[:tenant]
+    url = %r{\Ahttps://.*:.*@#{tenant}.crm.infopark.net/api2/#{resource}\z}
+    body_path = File.expand_path("crm/fakeweb/api2/#{resource}.json", __dir__)
+    return unless File.exist?(body_path)
 
-    body = File.read(path_to_body_file)
+    body = File.read(body_path)
     options.reverse_merge!(body: body)
 
     FakeWeb.register_uri(method, url, options)

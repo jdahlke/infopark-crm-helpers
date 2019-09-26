@@ -9,7 +9,10 @@ module Crm
           return if value.is_a?(Time)
           return if value.is_a?(DateTime)
 
-          record.errors.add(attribute, I18n.t('activerecord.errors.messages.invalid_datetime'))
+          record.errors.add(
+            attribute,
+            I18n.t('activerecord.errors.messages.invalid_datetime')
+          )
         end
       end
     end

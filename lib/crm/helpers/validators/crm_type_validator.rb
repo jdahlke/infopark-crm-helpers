@@ -17,9 +17,17 @@ module Crm
             next if value.blank?
 
             attribute_type = definition['attribute_type']
-            validator = "::Crm::Helpers::Validators::Crm#{attribute_type.camelcase}Validator".constantize
-            record.validates_with validator, attributes: [attribute]
+            record.validates_with validator(attribute_type),
+                                  attributes: [attribute]
           end
+        end
+
+        private
+
+        def validator(attribute_type)
+          validator_name = '::Crm::Helpers::Validators' \
+                           "::Crm#{attribute_type.camelcase}Validator"
+          validator_name.constantize
         end
       end
     end

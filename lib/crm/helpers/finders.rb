@@ -24,7 +24,8 @@ module Crm
         limit = options[:limit] || 50
         sort_order = options[:sort_order] || 'desc'
 
-        crm_class.query(query).limit(limit).sort_order(sort_order).to_a.map do |crm_object|
+        result = crm_class.query(query).limit(limit).sort_order(sort_order).to_a
+        result.map do |crm_object|
           new(crm_object.attributes)
         end
       end
@@ -43,7 +44,11 @@ module Crm
           crm_object.is_a?(crm_class)
         end
         unknown_ids = ids - crm_objects.map(&:id)
-        raise Errors::ResourceNotFound.new('Items could not be found.', unknown_ids) if unknown_ids.present?
+        if unknown_ids.present?
+          raise Errors::ResourceNotFound.new(
+            'Items could not be found.', unknown_ids
+          )
+        end
 
         crm_objects.map { |crm_object| new(crm_object.attributes) }
       end

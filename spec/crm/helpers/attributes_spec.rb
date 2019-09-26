@@ -46,7 +46,9 @@ describe Crm::Helpers::Attributes do
 
     context 'with an invalid CRM type' do
       it 'should raise an error' do
-        expect { subject.represents_crm_type(:does_not_exist) }.to raise_error(Crm::Errors::ResourceNotFound)
+        expect { subject.represents_crm_type(:does_not_exist) }.to(
+          raise_error(Crm::Errors::ResourceNotFound)
+        )
       end
     end
 
@@ -59,7 +61,9 @@ describe Crm::Helpers::Attributes do
 
       it 'should call .crm_attr_accessor with all mandatory attributes' do
         allow(subject).to receive(:crm_attributes).and_return(crm_attributes)
-        expect(subject).to receive(:crm_attr_accessor).with(*mandatory_attributes)
+        expect(subject).to(
+          receive(:crm_attr_accessor).with(*mandatory_attributes)
+        )
 
         subject.represents_crm_type(:contact)
       end
@@ -144,7 +148,9 @@ describe Crm::Helpers::Attributes do
         instance = subject.new
 
         data.keys.each do |attribute|
-          expect(instance.send(attribute)).to eq(instance.crm_attributes[attribute])
+          expect(instance.send(attribute)).to(
+            eq(instance.crm_attributes[attribute])
+          )
         end
       end
     end
@@ -175,7 +181,9 @@ describe Crm::Helpers::Attributes do
       end
 
       it 'should add the reader methods to .crm_attr_readers' do
-        expect(subject.crm_attr_readers).to eq(%i[first_name language last_name])
+        expect(subject.crm_attr_readers).to(
+          eq(%i[first_name language last_name])
+        )
       end
     end
   end
@@ -198,7 +206,9 @@ describe Crm::Helpers::Attributes do
       end
 
       it 'should add the writer methods to .crm_attr_writers' do
-        expect(subject.crm_attr_writers).to eq(%i[first_name= language= last_name=])
+        expect(subject.crm_attr_writers).to(
+          eq(%i[first_name= language= last_name=])
+        )
       end
 
       it 'should write into the crm_attributes hash' do
@@ -244,7 +254,9 @@ describe Crm::Helpers::Attributes do
       end
 
       it 'should add the writer methods to .crm_attr_writers' do
-        expect(subject.crm_attr_writers).to eq(%i[first_name= language= last_name=])
+        expect(subject.crm_attr_writers).to(
+          eq(%i[first_name= language= last_name=])
+        )
       end
     end
   end

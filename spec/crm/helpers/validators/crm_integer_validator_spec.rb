@@ -2,8 +2,6 @@
 
 require 'spec_helper'
 
-include CrmAttributeValidatorSpecHelper
-
 validator = Crm::Helpers::Validators::CrmIntegerValidator
 
 attribute_type = {
@@ -22,4 +20,6 @@ options = {
   valid_values: valid_values
 }
 
-run_specs_for_crm_attribute_validator(validator, options)
+RSpec.describe validator, type: :validator do
+  include_examples 'crm attribute validator', validator, options
+end
