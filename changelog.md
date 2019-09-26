@@ -1,3 +1,7 @@
+### 2.0.1
+
+- Enforce Rails version 5 or newer via gemspec.
+
 ### 2.0.0
 
 - Added support for Rails 6.

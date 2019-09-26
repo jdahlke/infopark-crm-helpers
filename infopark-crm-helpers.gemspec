@@ -4,11 +4,8 @@ lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'crm/helpers/version'
 
-rails_version = ENV['RAILS_VERSION'] || 'default'
-rails = case rails_version
-        when 'default' then '>= 4.0'
-        else "~> #{rails_version}"
-        end
+rails_version = ENV['TRAVIS_RAILS_VERSION'].to_s
+rails_version = rails_version.empty? ? '>= 5.0' : "~> #{rails_version}.0"
 
 Gem::Specification.new do |spec|
   spec.name = 'infopark-crm-helpers'
@@ -30,8 +27,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.3'
 
-  spec.add_dependency 'activemodel', rails
-  spec.add_dependency 'activesupport', rails
+  spec.add_dependency 'activemodel', rails_version
+  spec.add_dependency 'activesupport', rails_version
   spec.add_dependency 'infopark_webcrm_sdk'
 
   spec.add_development_dependency 'bundler', '~> 1.11'
