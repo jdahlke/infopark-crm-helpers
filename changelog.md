@@ -1,3 +1,8 @@
+### 1.3.1
+
+- Replace `fakeweb` with `webmock`.
+- Add `rubocop`.
+
 ### 1.3.0
 
 - Add `Crm::Helpers::Persistence.create!`.

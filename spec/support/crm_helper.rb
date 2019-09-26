@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CrmHelper
   include RSpec::Mocks::ExampleMethods
 
@@ -9,27 +11,27 @@ module CrmHelper
     end
   end
 
-  def stub_crm_request(method, resource, options = {})
-    return if ENV['WEBCRM_INTEGRATION'].present?
+  def stub_crm_request(method, resource, response = {})
+    tenant = crm_configuration[:tenant]
+    url = "https://#{tenant}.crm.infopark.net/api2/#{resource}"
+    body_path = File.expand_path("crm/fakeweb/api2/#{resource}.json", __dir__)
+    return unless File.exist?(body_path)
 
-    url = %r{\Ahttps://.*:.*@#{crm_configuration[:tenant]}.crm.infopark.net/api2/#{resource}\z}
-    path_to_body_file = File.expand_path(File.join(%W(.. crm fakeweb api2 #{resource}.json)), __FILE__)
-    return unless File.exist?(path_to_body_file)
+    body = File.read(body_path)
+    response.reverse_merge!(body: body)
 
-    body = File.read(path_to_body_file)
-    options.reverse_merge!(body: body)
-
-    FakeWeb.register_uri(method, url, options)
+    WebMock.stub_request(method, url).to_return(response)
   end
 
   protected
 
   def crm_configuration
-    @crm_configuration ||= begin
-      crm_config_path = File.expand_path('../../../.crm.yml', __FILE__)
-      YAML.load_file(crm_config_path).with_indifferent_access
-    rescue
-      {}
-    end
+    return @crm_configuration if defined?(@crm_configuration)
+
+    crm_config_path = File.expand_path('../config/crm.yml', __dir__)
+    config = YAML.load_file(crm_config_path)['test']
+    @crm_configuration = config.with_indifferent_access
+  rescue StandardError
+    @crm_configuration = HashWithIndifferentAccess.new
   end
 end

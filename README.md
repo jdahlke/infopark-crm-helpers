@@ -32,12 +32,13 @@ No direct configuration of `infopark-crm-helpers` is required. Refer to [infopar
 
 ### Run specs
 
-Add your CRM credentials to `.crm.yml` in the root folder of this project.
+Add your CRM credentials to `/spec/config/crm.yml`.
 
 ```yaml
-tenant: your-tenant-here
-login: john.smith@example.org
-api_key: 1234567890abcdefghijklmnopqrstuvwxyz
+test:
+  tenant: your-tenant-here
+  login: john.smith@example.org
+  api_key: 1234567890abcdefghijklmnopqrstuvwxyz
 ```
 
 Then invoke:

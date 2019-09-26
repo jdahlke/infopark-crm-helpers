@@ -1,5 +1,4 @@
 /.bundle/
-/.crm.yml
 /.yardoc
 /Gemfile.lock
 /_yardoc/
@@ -7,4 +6,5 @@
 /doc/
 /pkg/
 /spec/reports/
+/spec/config/crm.yml
 /tmp/

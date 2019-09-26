@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crm
   module Helpers
     module Persistence
@@ -15,7 +17,10 @@ module Crm
 
         def create!(attributes = {})
           instance = create(attributes)
-          raise Crm::Errors::InvalidValues.new('', instance.errors) if instance.invalid?
+          if instance.invalid?
+            raise Crm::Errors::InvalidValues.new('', instance.errors)
+          end
+
           instance
         end
       end
@@ -37,7 +42,7 @@ module Crm
 
       def update!(attributes = {})
         assign_crm_attributes(attributes)
-        raise Crm::Errors::InvalidValues.new('', self.errors) if invalid?
+        raise Crm::Errors::InvalidValues.new('', errors) if invalid?
 
         persist
       end
