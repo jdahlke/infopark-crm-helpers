@@ -10,9 +10,8 @@ require 'crm/helpers'
 
 require 'support/crm_helper'
 require 'support/crm_attribute_validator_spec_helper'
-require 'support/fakeweb'
-require 'fakeweb'
 require 'pry'
+require 'webmock/rspec'
 require 'yaml'
 
 RSpec.configure do |config|
@@ -29,3 +28,5 @@ RSpec.configure do |config|
     stub_crm_request(:get, 'types/does_not_exist', status: ['404', 'Not Found'])
   end
 end
+
+WebMock.allow_net_connect! if ENV['WEBCRM_INTEGRATION'].present?

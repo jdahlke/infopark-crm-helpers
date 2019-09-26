@@ -11,18 +11,16 @@ module CrmHelper
     end
   end
 
-  def stub_crm_request(method, resource, options = {})
-    return if ENV['WEBCRM_INTEGRATION'].present?
-
+  def stub_crm_request(method, resource, response = {})
     tenant = crm_configuration[:tenant]
-    url = %r{\Ahttps://.*:.*@#{tenant}.crm.infopark.net/api2/#{resource}\z}
+    url = "https://#{tenant}.crm.infopark.net/api2/#{resource}"
     body_path = File.expand_path("crm/fakeweb/api2/#{resource}.json", __dir__)
     return unless File.exist?(body_path)
 
     body = File.read(body_path)
-    options.reverse_merge!(body: body)
+    response.reverse_merge!(body: body)
 
-    FakeWeb.register_uri(method, url, options)
+    WebMock.stub_request(method, url).to_return(response)
   end
 
   protected
