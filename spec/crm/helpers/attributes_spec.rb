@@ -273,25 +273,6 @@ describe Crm::Helpers::Attributes do
     end
   end
 
-  describe '#assign_attributes' do
-    let(:instance) do
-      instance = subject.new
-      allow(STDERR).to receive(:puts)
-      allow(instance).to receive(:assign_crm_attributes)
-      instance
-    end
-
-    it 'prints a deprecation message' do
-      expect(instance).to receive(:warn)
-      instance.assign_attributes(data)
-    end
-
-    it 'calls #assign_crm_attributes with its params' do
-      expect(instance).to receive(:assign_crm_attributes).with(data)
-      instance.assign_attributes(data)
-    end
-  end
-
   describe '#assign_crm_attributes' do
     subject do
       class_with_attributes = Class.new do
