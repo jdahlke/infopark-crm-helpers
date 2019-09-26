@@ -69,7 +69,7 @@ describe Crm::Helpers::Persistence do
       allow(subject).to receive(:new).and_return(instance)
     end
 
-    %i(create create!).each do |method|
+    %i[create create!].each do |method|
       it 'creates a new instance with attributes' do
         expect(subject).to receive(:new).with(crm_attributes)
         subject.send(method, crm_attributes)
@@ -86,7 +86,7 @@ describe Crm::Helpers::Persistence do
         allow(instance).to receive(:invalid?).and_return(false)
       end
 
-      %i(create create!).each do |method|
+      %i[create create!].each do |method|
         describe "##{method}" do
           it 'persists the instance' do
             expect(instance).to receive(:save!)
@@ -222,7 +222,7 @@ describe Crm::Helpers::Persistence do
       allow(crm_object).to receive(:update).with(crm_attributes).and_return(crm_object)
     end
 
-    %i(update update!).each do |method|
+    %i[update update!].each do |method|
       describe "##{method}" do
         it 'returns true' do
           expect(instance.send(method)).to eq(true)

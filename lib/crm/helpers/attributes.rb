@@ -104,7 +104,7 @@ module Crm
           'Please use `Crm::Helpers::Attributes#assign_crm_attributes` instead.',
           '`Crm::Helpers::Attributes#assign_attributes` will be removed in version 2.0.0.'
         ].join(' ')
-        STDERR.puts(deprecation_message)
+        warn(deprecation_message)
         assign_crm_attributes(new_attributes)
       end
 

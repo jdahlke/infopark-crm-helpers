@@ -18,6 +18,7 @@ module Crm
         def create!(attributes = {})
           instance = create(attributes)
           raise Crm::Errors::InvalidValues.new('', instance.errors) if instance.invalid?
+
           instance
         end
       end

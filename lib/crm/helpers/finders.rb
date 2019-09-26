@@ -12,13 +12,11 @@ module Crm
         ids = args.flatten
 
         case ids.size
-        when 0
-          raise ArgumentError, 'Requires one or more IDs as argument.'
+        when 0 then raise ArgumentError, 'Requires one or more IDs as argument.'
         when 1
           crm_object = find_one(ids.first)
           wants_array ? [crm_object].compact : crm_object
-        else
-          find_many(ids)
+        else find_many(ids)
         end
       end
 

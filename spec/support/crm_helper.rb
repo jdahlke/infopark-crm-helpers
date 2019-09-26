@@ -15,7 +15,7 @@ module CrmHelper
     return if ENV['WEBCRM_INTEGRATION'].present?
 
     url = %r{\Ahttps://.*:.*@#{crm_configuration[:tenant]}.crm.infopark.net/api2/#{resource}\z}
-    path_to_body_file = File.expand_path(File.join(%W(.. crm fakeweb api2 #{resource}.json)), __FILE__)
+    path_to_body_file = File.expand_path("crm/fakeweb/api2/#{resource}.json", __dir__)
     return unless File.exist?(path_to_body_file)
 
     body = File.read(path_to_body_file)
@@ -27,11 +27,12 @@ module CrmHelper
   protected
 
   def crm_configuration
-    @crm_configuration ||= begin
-      crm_config_path = File.expand_path('../../config/crm.yml', __FILE__)
-      YAML.load_file(crm_config_path)['test'].with_indifferent_access
-    rescue
-      {}
-    end
+    return @crm_configuration if defined?(@crm_configuration)
+
+    crm_config_path = File.expand_path('../config/crm.yml', __dir__)
+    config = YAML.load_file(crm_config_path)['test']
+    @crm_configuration = config.with_indifferent_access
+  rescue StandardError
+    @crm_configuration = HashWithIndifferentAccess.new
   end
 end

@@ -17,7 +17,7 @@ describe Crm::Helpers::Finders do
     allow(object).to receive(:attributes).and_return(crm_object_attributes)
     object
   end
-  let(:crm_ids) { %w(2 3 4 5) }
+  let(:crm_ids) { %w[2 3 4 5] }
   let(:crm_objects) do
     crm_ids.map do |id|
       o = crm_class.new
@@ -99,7 +99,7 @@ describe Crm::Helpers::Finders do
       end
 
       context 'for objects of the wrong class' do
-        let(:crm_ids_for_wrong_objects) { %w(0) }
+        let(:crm_ids_for_wrong_objects) { %w[0] }
 
         let(:wrong_objects) do
           crm_ids_for_wrong_objects.map do |crm_id|

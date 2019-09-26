@@ -12,6 +12,7 @@ module Crm
 
             reader = attribute.to_sym
             next unless record.respond_to?(reader)
+
             value = record.send(reader)
             next if value.blank?
 

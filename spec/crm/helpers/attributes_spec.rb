@@ -13,7 +13,7 @@ describe Crm::Helpers::Attributes do
   end
 
   let(:mandatory_attributes) do
-    %i(amanda_tory mandatory)
+    %i[amanda_tory mandatory]
   end
 
   let(:data) do
@@ -110,10 +110,10 @@ describe Crm::Helpers::Attributes do
   end
 
   describe '.crm_attr_reader' do
-    let(:crm_methods) { %i(first_name last_name) }
+    let(:crm_methods) { %i[first_name last_name] }
 
     context 'with undefined reader methods' do
-      let(:crm_methods) { %i(home_page name) }
+      let(:crm_methods) { %i[home_page name] }
 
       let(:data) do
         {
@@ -137,7 +137,7 @@ describe Crm::Helpers::Attributes do
       end
 
       it 'should add the reader methods to .crm_attr_readers' do
-        expect(subject.crm_attr_readers).to eq(%i(home_page name))
+        expect(subject.crm_attr_readers).to eq(%i[home_page name])
       end
 
       it 'should read from the crm_attributes hash' do
@@ -175,13 +175,13 @@ describe Crm::Helpers::Attributes do
       end
 
       it 'should add the reader methods to .crm_attr_readers' do
-        expect(subject.crm_attr_readers).to eq(%i(first_name language last_name))
+        expect(subject.crm_attr_readers).to eq(%i[first_name language last_name])
       end
     end
   end
 
   describe '.crm_attr_writer' do
-    let(:crm_methods) { %i(first_name last_name) }
+    let(:crm_methods) { %i[first_name last_name] }
 
     context 'with undefined writer methods' do
       before :each do
@@ -198,7 +198,7 @@ describe Crm::Helpers::Attributes do
       end
 
       it 'should add the writer methods to .crm_attr_writers' do
-        expect(subject.crm_attr_writers).to eq(%i(first_name= language= last_name=))
+        expect(subject.crm_attr_writers).to eq(%i[first_name= language= last_name=])
       end
 
       it 'should write into the crm_attributes hash' do
@@ -244,14 +244,14 @@ describe Crm::Helpers::Attributes do
       end
 
       it 'should add the writer methods to .crm_attr_writers' do
-        expect(subject.crm_attr_writers).to eq(%i(first_name= language= last_name=))
+        expect(subject.crm_attr_writers).to eq(%i[first_name= language= last_name=])
       end
     end
   end
 
   describe '.crm_attr_accessor' do
     let(:crm_methods) do
-      %i(first_name last_name email)
+      %i[first_name last_name email]
     end
 
     it 'should call .crm_attr_reader and .crm_attr_writer' do
@@ -269,8 +269,8 @@ describe Crm::Helpers::Attributes do
       instance
     end
 
-    it 'prints a deprecation message on STDERR' do
-      expect(STDERR).to receive(:puts)
+    it 'prints a deprecation message' do
+      expect(instance).to receive(:warn)
       instance.assign_attributes(data)
     end
 

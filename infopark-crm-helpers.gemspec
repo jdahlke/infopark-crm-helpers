@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'crm/helpers/version'
 
@@ -29,8 +29,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ['>= 2.1', '< 2.4']
 
-  spec.add_dependency 'activesupport', rails
   spec.add_dependency 'activemodel', rails
+  spec.add_dependency 'activesupport', rails
   spec.add_dependency 'infopark_webcrm_sdk'
 
   spec.add_development_dependency 'bundler', '~> 1.11'
