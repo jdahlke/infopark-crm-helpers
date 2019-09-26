@@ -1,3 +1,11 @@
+### 2.0.0
+
+- Added support for Rails 6.
+- Drop support for Rails 4.
+- Added support for Rubies 2.4, 2.5, and 2.6
+- Drop support for Rubies 2.1 and 2.2.
+- Remove deprecated `Crm::Helpers::Attributes#assign_attributes`.
+
 ### 1.3.1
 
 - Replace `fakeweb` with `webmock`.
